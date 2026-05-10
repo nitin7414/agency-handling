@@ -1,0 +1,18 @@
+{
+  "name": "GasPro Agency Management",
+  "short_name": "GasPro",
+  "description": "Mobile-first gas agency management dashboard",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f766e",
+  "theme_color": "#0f766e",
+  "scope": "/",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Customers", "url": "/customers", "description": "Search customers" },
+    { "name": "Tasks", "url": "/tasks", "description": "Delivery reminders" }
+  ]
+}

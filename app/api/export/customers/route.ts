@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+export async function GET() { const rows = await prisma.customer.findMany({ orderBy: { fullName: "asc" } }); const csv = ["Name,Phone,Area,Address,Filled,Empty,Pending", ...rows.map((r) => [r.fullName, r.phoneNumber, r.area, r.fullAddress, r.totalCylindersReceived, r.totalEmptyCylindersReturned, r.totalPendingPayment].map((v) => `"${String(v).replaceAll('"', '""')}"`).join(","))].join("\n"); return new NextResponse(csv, { headers: { "content-type": "text/csv", "content-disposition": "attachment; filename=customers.csv" } }); }

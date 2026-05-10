@@ -1,0 +1,3 @@
+import { MobileHeader } from "@/components/mobile-header";
+import { SignOutButton } from "@/components/sign-out-button";
+export default function SettingsPage() { return <><MobileHeader title="Settings" subtitle="App, theme and session" /><main className="space-y-4 px-4"><section className="touch-card"><h2 className="font-bold">Install as Android app</h2><p className="text-sm text-muted-foreground">Use Chrome Add to Home Screen, PWABuilder, or Capacitor to wrap this installable PWA into an APK.</p></section><section className="touch-card"><h2 className="font-bold">Dark mode ready</h2><p className="text-sm text-muted-foreground">The design tokens support dark mode; wire a class toggle if you want manual switching.</p></section><SignOutButton label="Logout" /></main></>; }
