@@ -1,0 +1,1 @@
+export default function Loading() { return <main className="mobile-shell space-y-4 p-4"><div className="h-20 animate-pulse rounded-3xl bg-muted" /><div className="grid grid-cols-2 gap-3">{Array.from({ length: 6 }).map((_, i) => <div key={i} className="h-32 animate-pulse rounded-3xl bg-muted" />)}</div></main>; }

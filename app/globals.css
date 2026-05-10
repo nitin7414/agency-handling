@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 170 30% 98%; --foreground: 222 47% 11%; --card: 0 0% 100%; --card-foreground: 222 47% 11%;
+    --primary: 174 72% 30%; --primary-foreground: 0 0% 100%; --secondary: 180 20% 92%; --secondary-foreground: 222 47% 11%;
+    --muted: 180 20% 94%; --muted-foreground: 215 16% 47%; --accent: 36 92% 58%; --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%; --destructive-foreground: 0 0% 98%; --border: 214 32% 91%; --input: 214 32% 91%; --ring: 174 72% 30%; --radius: 1rem;
+  }
+  .dark {
+    --background: 222 47% 8%; --foreground: 210 40% 98%; --card: 222 47% 11%; --card-foreground: 210 40% 98%;
+    --primary: 174 72% 40%; --primary-foreground: 0 0% 100%; --secondary: 217 33% 17%; --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%; --muted-foreground: 215 20% 65%; --accent: 36 92% 58%; --accent-foreground: 222 47% 11%;
+    --destructive: 0 63% 31%; --destructive-foreground: 210 40% 98%; --border: 217 33% 17%; --input: 217 33% 17%; --ring: 174 72% 40%;
+  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; }
+}
+
+.safe-bottom { padding-bottom: calc(env(safe-area-inset-bottom) + 5rem); }
+.touch-card { @apply rounded-3xl border bg-card p-4 shadow-soft transition active:scale-[0.98]; }
+.mobile-shell { @apply mx-auto min-h-screen w-full max-w-md bg-background safe-bottom; }
