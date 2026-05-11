@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Search, Flame, User, X, MapPin, Phone, FileText } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { SignOutButton } from "@/components/sign-out-button";
 import * as Dialog from "@radix-ui/react-dialog";
 import { money } from "@/lib/utils";
 
@@ -37,17 +36,16 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
     <header className="px-4 pt-6 pb-2 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-500/20">
-            <Flame className="h-7 w-7 text-white fill-white/20" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-xl shadow-black/5 overflow-hidden">
+            <img src="/logo.png" alt="Shri Shyam Gas Agency Logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">GasPro</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">Shri Shyam Gas Agency</p>
             <p className="text-sm font-bold text-muted-foreground leading-none">Agency Hub</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <SignOutButton />
         </div>
       </div>
 
@@ -104,25 +102,29 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
       <Dialog.Root open={!!selectedCustomer} onOpenChange={(open) => !open && setSelectedCustomer(null)}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md animate-in fade-in duration-300" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-[2.5rem] bg-white dark:bg-zinc-900 p-6 shadow-2xl animate-in zoom-in-95 duration-300 outline-none border border-black/5 dark:border-white/10 overflow-y-auto max-h-[90vh]">
-            {selectedCustomer && (
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xl">
-                      {selectedCustomer.fullName.charAt(0)}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <Dialog.Content 
+              aria-describedby={undefined}
+              className="w-full max-w-md rounded-[2.5rem] bg-white dark:bg-zinc-900 p-8 shadow-2xl animate-in zoom-in-95 duration-300 outline-none border border-black/5 dark:border-white/10 overflow-y-auto max-h-[90vh] custom-scrollbar"
+            >
+              {selectedCustomer && (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xl">
+                        {selectedCustomer.fullName.charAt(0)}
+                      </div>
+                      <div>
+                        <Dialog.Title className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
+                          {selectedCustomer.fullName}
+                        </Dialog.Title>
+                        <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">{selectedCustomer.area}</p>
+                      </div>
                     </div>
-                    <div>
-                      <Dialog.Title className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
-                        {selectedCustomer.fullName}
-                      </Dialog.Title>
-                      <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">{selectedCustomer.area}</p>
-                    </div>
+                    <Dialog.Close className="rounded-full p-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
+                      <X className="h-4 w-4 text-zinc-500" />
+                    </Dialog.Close>
                   </div>
-                  <Dialog.Close className="rounded-full p-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-                    <X className="h-5 w-5 text-zinc-500" />
-                  </Dialog.Close>
-                </div>
 
                 <div className="space-y-4">
                    <div className="p-4 rounded-3xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-white/5 space-y-3">
@@ -178,8 +180,9 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
               </div>
             )}
           </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+        </div>
+      </Dialog.Portal>
+    </Dialog.Root>
     </header>
   );
 }

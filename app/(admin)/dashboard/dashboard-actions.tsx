@@ -44,15 +44,20 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md animate-in fade-in duration-300" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-[2.5rem] bg-white dark:bg-zinc-900 p-6 shadow-2xl animate-in zoom-in-95 duration-300 outline-none border border-black/5 dark:border-white/10">
-          <div className="flex items-center justify-between mb-6">
-            <Dialog.Title className="text-xl font-black tracking-tight text-zinc-900 dark:text-white">{title}</Dialog.Title>
-            <Dialog.Close className="rounded-full p-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-              <X className="h-5 w-5 text-zinc-500" />
-            </Dialog.Close>
-          </div>
-          {children}
-        </Dialog.Content>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <Dialog.Content 
+            aria-describedby={undefined}
+            className="w-[92%] max-w-md rounded-[2.5rem] bg-white dark:bg-zinc-900 p-8 shadow-2xl animate-in zoom-in-95 duration-300 outline-none border border-black/5 dark:border-white/10 max-h-[90vh] overflow-y-auto custom-scrollbar"
+          >
+            <div className="flex items-center justify-between mb-8">
+              <Dialog.Title className="text-xl font-black tracking-tight text-zinc-900 dark:text-white">{title}</Dialog.Title>
+              <Dialog.Close className="rounded-full p-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
+                <X className="h-4 w-4 text-zinc-500" />
+              </Dialog.Close>
+            </div>
+            {children}
+          </Dialog.Content>
+        </div>
       </Dialog.Portal>
     </Dialog.Root>
   );
@@ -95,17 +100,20 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
         open={openDialog === "qr"}
         onOpenChange={(open: boolean) => !open && setOpenDialog(null)}
       >
-        <div className="flex flex-col items-center justify-center py-8">
-          <div className="relative p-4 bg-white rounded-3xl mb-6">
+        <div className="flex flex-col items-center justify-center py-4">
+          <div className="relative p-6 bg-white rounded-[2.5rem] mb-8 border border-black/5 shadow-inner">
             <img
               src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=GasProPayment"
               alt="QR Code"
               className="w-48 h-48"
             />
           </div>
-          <p className="text-center text-sm font-medium text-muted-foreground">
-            Scan this QR code to make a payment to GasPro Agency
-          </p>
+          <div className="text-center space-y-2">
+            <p className="text-sm font-black text-zinc-900 dark:text-white uppercase tracking-tight">Scan & Pay</p>
+            <p className="text-xs font-medium text-muted-foreground max-w-[200px] mx-auto">
+              Use any UPI app to pay Shri Shyam Gas Agency directly.
+            </p>
+          </div>
         </div>
       </Modal>
 

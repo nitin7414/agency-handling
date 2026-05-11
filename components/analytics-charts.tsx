@@ -16,7 +16,7 @@ const TooltipContent = ({ active, payload }: any) => {
 export function RevenueChart({ data }: { data: { label: string; revenue: number; cylinders: number }[] }) {
   return (
     <div className="h-64 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
         <AreaChart data={data}>
           <defs>
             <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
@@ -53,7 +53,7 @@ export function RevenueChart({ data }: { data: { label: string; revenue: number;
 export function CylinderChart({ data }: { data: { label: string; revenue: number; cylinders: number }[] }) {
   return (
     <div className="h-64 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
           <XAxis 
