@@ -4,7 +4,7 @@ import { Smartphone, Moon, Shield, Info, ExternalLink } from "lucide-react";
 
 export default function SettingsPage() {
   return (
-    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-background to-background">
+    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/15 via-background to-background">
       <MobileHeader title="Settings" subtitle="System & preferences" />
       
       <main className="px-4 pb-24 pt-4 space-y-6">
@@ -17,22 +17,22 @@ export default function SettingsPage() {
           </div>
           
           <div className="space-y-3">
-            <div className="glass-card rounded-3xl p-5 flex items-center gap-4">
+            <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-5 flex items-center gap-4">
                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
                   <Smartphone className="h-6 w-6 text-primary" />
                </div>
                <div>
-                  <h3 className="text-sm font-black text-white">Mobile PWA</h3>
-                  <p className="text-xs text-muted-foreground mt-0.5">Install GasPro as a native-like app via your browser's home screen.</p>
+                  <h3 className="text-sm font-black text-foreground">Mobile PWA</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">Install Shri Shyam Gas Agency as a native-like app via your browser's home screen.</p>
                </div>
             </div>
 
-            <div className="glass-card rounded-3xl p-5 flex items-center gap-4">
+            <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-5 flex items-center gap-4">
                <div className="h-12 w-12 rounded-2xl bg-blue-500/10 flex items-center justify-center shrink-0">
                   <Moon className="h-6 w-6 text-blue-500" />
                </div>
                <div>
-                  <h3 className="text-sm font-black text-white">Visual Theme</h3>
+                  <h3 className="text-sm font-black text-foreground">Visual Theme</h3>
                   <p className="text-xs text-muted-foreground mt-0.5">Dark mode is enabled by default for maximum power efficiency.</p>
                </div>
             </div>
@@ -46,12 +46,12 @@ export default function SettingsPage() {
              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Security</h2>
           </div>
           
-          <div className="glass-card rounded-3xl p-5 flex items-center gap-4">
-             <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center shrink-0">
-                <Shield className="h-6 w-6 text-emerald-500" />
+          <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-5 flex items-center gap-4">
+             <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Shield className="h-6 w-6 text-primary" />
              </div>
              <div>
-                <h3 className="text-sm font-black text-white">Session Security</h3>
+                <h3 className="text-sm font-black text-foreground">Session Security</h3>
                 <p className="text-xs text-muted-foreground mt-0.5">All sessions are encrypted and managed via secure JWT tokens.</p>
              </div>
           </div>
@@ -64,19 +64,19 @@ export default function SettingsPage() {
              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">About</h2>
           </div>
           
-          <div className="glass-card rounded-3xl p-5 space-y-4">
+          <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-5 space-y-4">
              <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0">
                    <Info className="h-6 w-6 text-slate-400" />
                 </div>
                 <div>
-                   <h3 className="text-sm font-black text-white">GasPro Agency v2.0</h3>
+                   <h3 className="text-sm font-black text-foreground">Shri Shyam Gas Agency v2.0</h3>
                    <p className="text-xs text-muted-foreground mt-0.5">Advanced Gas Agency Management System</p>
                 </div>
              </div>
              
              <div className="pt-2 border-t border-white/5">
-                <button className="w-full py-3 flex items-center justify-between text-xs font-bold text-slate-400 hover:text-white transition-colors">
+                <button className="w-full py-3 flex items-center justify-between text-xs font-bold text-slate-400 hover:text-foreground transition-colors">
                    <span>View Documentation</span>
                    <ExternalLink className="h-3 w-3" />
                 </button>

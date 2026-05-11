@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function ReportsPage() {
   return (
-    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-primary/5 via-background to-background">
+    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/15 via-background to-background">
       <MobileHeader
         title="Reports"
         subtitle="Manage exports & infrastructure"
@@ -22,7 +22,7 @@ export default function ReportsPage() {
           
           <div className="space-y-4">
             {/* Customer Records Card */}
-            <div className="glass-card rounded-[2rem] p-6 relative overflow-hidden group">
+            <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-6 relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Users className="h-20 w-20 text-primary" />
               </div>
@@ -32,7 +32,7 @@ export default function ReportsPage() {
                   <FileSpreadsheet className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black text-white">Customer Base</h3>
+                  <h3 className="text-lg font-black text-foreground">Customer Base</h3>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">CSV Format</p>
                 </div>
               </div>
@@ -42,14 +42,14 @@ export default function ReportsPage() {
               </p>
               
               <a href="/api/export/customers">
-                <Button className="w-full h-12 rounded-xl bg-primary text-black font-black text-sm shadow-lg shadow-primary/10 touch-card">
+                <Button className="w-full h-12 rounded-xl bg-primary text-black font-black text-sm shadow-lg shadow-primary/20 touch-card">
                   <Download className="mr-2 h-4 w-4" /> Export Customers
                 </Button>
               </a>
             </div>
 
             {/* Transaction Report Card */}
-            <div className="glass-card rounded-[2rem] p-6 relative overflow-hidden group">
+            <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-6 relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
                 <History className="h-20 w-20 text-blue-500" />
               </div>
@@ -59,7 +59,7 @@ export default function ReportsPage() {
                   <ArrowRight className="h-6 w-6 text-blue-500" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black text-white">Transactions</h3>
+                  <h3 className="text-lg font-black text-foreground">Transactions</h3>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">History Log</p>
                 </div>
               </div>
@@ -69,7 +69,7 @@ export default function ReportsPage() {
               </p>
               
               <a href="/api/export/transactions">
-                <Button variant="secondary" className="w-full h-12 rounded-xl bg-white/5 border border-white/5 text-white font-black text-sm touch-card">
+                <Button variant="secondary" className="w-full h-12 rounded-xl bg-muted/50 border-border/10 text-foreground font-black text-sm touch-card">
                   <Download className="mr-2 h-4 w-4 text-primary" /> Export Transactions
                 </Button>
               </a>
@@ -84,10 +84,10 @@ export default function ReportsPage() {
              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Infrastructure</h2>
           </div>
           
-          <div className="glass-card rounded-[2rem] p-6">
+          <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-6">
             <div className="flex items-center justify-between mb-6">
-              <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
-                <Database className="h-6 w-6 text-emerald-500" />
+              <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <Database className="h-6 w-6 text-primary" />
               </div>
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -95,36 +95,36 @@ export default function ReportsPage() {
               </div>
             </div>
 
-            <h3 className="text-lg font-black text-white mb-2">Resilience & Backups</h3>
+            <h3 className="text-lg font-black text-foreground mb-2">Resilience & Backups</h3>
             <p className="text-xs text-muted-foreground mb-6">Database integrity and recovery guidelines.</p>
 
             <div className="space-y-4">
-              <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+              <div className="flex gap-4 p-4 rounded-2xl bg-muted/50 border-border/10">
                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <Cloud className="h-4 w-4 text-primary" />
                 </div>
                 <div>
-                   <p className="text-xs font-bold text-white mb-1">Point-in-Time Restore</p>
+                   <p className="text-xs font-bold text-foreground mb-1">Point-in-Time Restore</p>
                    <p className="text-[11px] text-muted-foreground leading-relaxed">Continuous backup coverage is active on your Neon dashboard.</p>
                 </div>
               </div>
 
-              <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+              <div className="flex gap-4 p-4 rounded-2xl bg-muted/50 border-border/10">
                 <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
                   <ShieldCheck className="h-4 w-4 text-blue-500" />
                 </div>
                 <div>
-                   <p className="text-xs font-bold text-white mb-1">Security Standards</p>
+                   <p className="text-xs font-bold text-foreground mb-1">Security Standards</p>
                    <p className="text-[11px] text-muted-foreground leading-relaxed">Your database URL is encrypted in the environment secrets manager.</p>
                 </div>
               </div>
 
-              <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+              <div className="flex gap-4 p-4 rounded-2xl bg-muted/50 border-border/10">
                 <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
                   <Zap className="h-4 w-4 text-emerald-500" />
                 </div>
                 <div>
-                   <p className="text-xs font-bold text-white mb-1">Branch Backups</p>
+                   <p className="text-xs font-bold text-foreground mb-1">Branch Backups</p>
                    <p className="text-[11px] text-muted-foreground leading-relaxed">Set up scheduled daily restore points for maximum safety.</p>
                 </div>
               </div>

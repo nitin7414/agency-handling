@@ -56,6 +56,10 @@ model Customer {
   totalEmptyCylindersReturned Int              @default(0)
   totalPendingPayment         Decimal          @default(0) @db.Decimal(12, 2)
   isActive                    Boolean          @default(true)
+  aadharUrl                   String?
+  panUrl                      String?
+  foodLicenseUrl              String?
+  gstProofUrl                 String?
   createdAt                   DateTime         @default(now())
   updatedAt                   DateTime         @updatedAt
   transactions                Transaction[]

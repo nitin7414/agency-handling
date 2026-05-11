@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Flame, Lock, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export default function LoginPage() {
@@ -34,16 +35,22 @@ export default function LoginPage() {
 
       <section className="w-full max-w-sm z-10 space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
         <div className="text-center space-y-4">
-          <div className="inline-flex h-20 w-20 items-center justify-center rounded-[2.5rem] bg-gradient-to-br from-primary to-orange-600 shadow-2xl shadow-primary/40 mb-2">
-            <Flame className="h-10 w-10 text-white animate-pulse" />
+          <div className="inline-flex h-24 w-24 items-center justify-center mb-2">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={96}
+              height={96}
+              className="object-contain"
+            />
           </div>
           <div>
-            <h1 className="text-4xl font-black tracking-tight text-white">GasPro</h1>
+            <h1 className="text-4xl font-black tracking-tight text-foreground">Shri Shyam Gas Agency</h1>
             <p className="text-muted-foreground text-xs font-bold uppercase tracking-[0.3em] mt-1">Agency Management</p>
           </div>
         </div>
 
-        <div className="glass-card rounded-[2.5rem] p-8 space-y-6">
+        <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-2xl shadow-black/10 p-8 space-y-6">
           <div className="flex flex-col items-center gap-2 mb-4">
              <div className="flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-widest">
                 <ShieldCheck className="h-3 w-3" /> Secure Access
@@ -59,7 +66,7 @@ export default function LoginPage() {
                   placeholder="Admin Email" 
                   autoComplete="email" 
                   required 
-                  className="h-14 bg-white/5 border-white/5 rounded-2xl pl-12 text-white placeholder:text-muted-foreground focus:border-primary/50 transition-all duration-300"
+                  className="h-14 bg-white/5 border-white/5 rounded-2xl pl-12 text-foreground placeholder:text-muted-foreground focus:border-primary/50 transition-all duration-300"
                 />
                 <Zap className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
               </div>
@@ -71,7 +78,7 @@ export default function LoginPage() {
                   placeholder="Password" 
                   autoComplete="current-password" 
                   required 
-                  className="h-14 bg-white/5 border-white/5 rounded-2xl pl-12 text-white placeholder:text-muted-foreground focus:border-primary/50 transition-all duration-300"
+                  className="h-14 bg-white/5 border-white/5 rounded-2xl pl-12 text-foreground placeholder:text-muted-foreground focus:border-primary/50 transition-all duration-300"
                 />
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
               </div>
@@ -85,7 +92,7 @@ export default function LoginPage() {
 
             <Button 
               disabled={loading} 
-              className="w-full h-14 rounded-2xl bg-primary text-black font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-300" 
+              className="w-full h-14 rounded-2xl bg-primary text-white font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-300" 
               size="lg"
             >
               {loading ? "Authenticating..." : "Login Securely"}
@@ -94,7 +101,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-           &copy; 2026 GasPro Operations Console
+           &copy; 2026 Shri Shyam Gas Agency Operations Console
         </p>
       </section>
     </main>

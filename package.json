@@ -21,6 +21,7 @@
     "@radix-ui/react-dropdown-menu": "latest",
     "@radix-ui/react-label": "latest",
     "@radix-ui/react-slot": "latest",
+    "@uploadthing/react": "^7.3.3",
     "bcryptjs": "latest",
     "class-variance-authority": "latest",
     "clsx": "latest",
@@ -29,12 +30,14 @@
     "next": "latest",
     "next-auth": "^4.24.14",
     "next-pwa": "latest",
+    "next-themes": "^0.4.6",
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "latest",
     "recharts": "latest",
     "tailwind-merge": "latest",
     "tailwindcss-animate": "latest",
+    "uploadthing": "^7.7.4",
     "ws": "^8.20.0",
     "zod": "latest"
   },
@@ -56,6 +59,6 @@
     "typescript": "latest"
   },
   "prisma": {
-  "seed": "tsx prisma/seed.ts"
-}
+    "seed": "tsx prisma/seed.ts"
+  }
 }

@@ -4,11 +4,21 @@ import { prisma } from "@/lib/prisma";
 import { customerSchema, taskSchema, transactionSchema } from "@/actions/schemas";
 
 export async function createCustomer(_: unknown, formData: FormData) {
-  const parsed = customerSchema.safeParse(Object.fromEntries(formData));
+  const data = Object.fromEntries(formData);
+  const parsed = customerSchema.safeParse(data);
   if (!parsed.success) return { ok: false, message: parsed.error.issues[0].message };
   await prisma.customer.create({ data: parsed.data });
   revalidatePath("/customers"); revalidatePath("/dashboard");
   return { ok: true, message: "Customer created" };
+}
+
+export async function updateCustomer(customerId: string, formData: FormData) {
+  const data = Object.fromEntries(formData);
+  const parsed = customerSchema.safeParse(data);
+  if (!parsed.success) return { ok: false, message: parsed.error.issues[0].message };
+  await prisma.customer.update({ where: { id: customerId }, data: parsed.data });
+  revalidatePath("/customers"); revalidatePath("/dashboard");
+  return { ok: true, message: "Customer updated" };
 }
 
 export async function createTransaction(_: unknown, formData: FormData) {

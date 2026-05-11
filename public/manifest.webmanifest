@@ -1,6 +1,6 @@
 {
-  "name": "GasPro Agency Management",
-  "short_name": "GasPro",
+  "name": "Shri Shyam Gas Agency",
+  "short_name": "Shri Shyam Gas Agency",
   "description": "Mobile-first gas agency management dashboard",
   "start_url": "/dashboard",
   "display": "standalone",
