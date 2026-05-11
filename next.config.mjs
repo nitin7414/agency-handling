@@ -11,17 +11,29 @@ const withPWA = withPWAInit({
       handler: "NetworkFirst",
       options: {
         cacheName: "offline-cache",
-        expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 7 },
-        networkTimeoutSeconds: 8
-      }
-    }
-  ]
+        expiration: {
+          maxEntries: 80,
+          maxAgeSeconds: 60 * 60 * 24 * 7,
+        },
+        networkTimeoutSeconds: 8,
+      },
+    },
+  ],
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { serverActions: { bodySizeLimit: "2mb" } },
-  images: { remotePatterns: [] }
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
+
+  images: {
+    remotePatterns: [],
+  },
+
+  turbopack: {},
 };
 
 export default withPWA(nextConfig);
