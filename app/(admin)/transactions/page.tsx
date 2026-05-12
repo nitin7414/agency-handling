@@ -1,7 +1,8 @@
-// app/(admin)/transactions/page.tsx
 import { prisma } from "@/lib/prisma";
 import { MobileHeader } from "@/components/mobile-header";
 import { TransactionClient } from "@/components/transaction-client";
+
+export const dynamic = "force-dynamic";
 
 export default async function TransactionsPage() {
   const transactions = await prisma.transaction.findMany({
