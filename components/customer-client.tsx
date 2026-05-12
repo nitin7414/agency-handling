@@ -30,6 +30,7 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [actionType, setActionType] = useState<"Delivery" | "Collection">("Delivery");
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -307,14 +308,39 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                               </div>
                               <input type="hidden" name="customerId" value={customer.id} />
                               
-                              <div className="grid grid-cols-2 gap-3">
-                                 <div className="space-y-1.5">
-                                    <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Delivered</label>
-                                    <Input name="filledCylindersDelivered" type="number" min="0" placeholder="0" defaultValue="1" className="h-12 rounded-xl glass border-white/5" />
+                              <div className="space-y-4">
+                                 <div className="flex p-1 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/5">
+                                    {["Delivery", "Collection"].map((type) => (
+                                       <button
+                                          key={type}
+                                          type="button"
+                                          onClick={() => setActionType(type as any)}
+                                          className={`flex-1 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+                                             actionType === type 
+                                                ? "bg-white dark:bg-zinc-700 text-primary shadow-sm" 
+                                                : "text-muted-foreground"
+                                          }`}
+                                       >
+                                          {type}
+                                       </button>
+                                    ))}
                                  </div>
+
                                  <div className="space-y-1.5">
-                                    <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Received Empty</label>
-                                    <Input name="emptyCylindersReceived" type="number" min="0" placeholder="0" defaultValue="0" className="h-12 rounded-xl glass border-white/5" />
+                                    <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                       {actionType === "Delivery" ? "Cylinders Delivered" : "Cylinders Collected"}
+                                    </label>
+                                    <div className="relative">
+                                       <Cylinder className={`absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 ${actionType === "Delivery" ? "text-emerald-500" : "text-orange-500"}`} />
+                                       <Input 
+                                          name={actionType === "Delivery" ? "filledCylindersDelivered" : "emptyCylindersReceived"} 
+                                          type="number" 
+                                          min="0" 
+                                          defaultValue="1" 
+                                          className="h-12 pl-12 rounded-xl glass border-white/5 font-black text-foreground" 
+                                       />
+                                       <input type="hidden" name={actionType === "Delivery" ? "emptyCylindersReceived" : "filledCylindersDelivered"} value="0" />
+                                    </div>
                                  </div>
                               </div>
 
@@ -361,7 +387,9 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                                              <div>
                                                 <p className="text-xs font-black text-foreground">{new Date(t.deliveryDate).toLocaleDateString("en-IN", { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                                                 <p className="text-[10px] font-medium text-muted-foreground mt-0.5 uppercase tracking-wide">
-                                                   {t.filledCylindersDelivered} In / {t.emptyCylindersReceived} Out
+                                                   {t.filledCylindersDelivered > 0 
+                                                     ? `${t.filledCylindersDelivered} Delivered` 
+                                                     : `${t.emptyCylindersReceived} Collected`}
                                                 </p>
                                              </div>
                                              <Badge className={cn(
@@ -437,15 +465,41 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                              <input type="hidden" name="paymentStatus" value="Done" />
                              <input type="hidden" name="deliveryDate" value={new Date().toISOString().slice(0, 10)} />
                              
-                             <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Cylinders Delivered</label>
-                                <Input name="filledCylindersDelivered" type="number" min="0" defaultValue="1" className="h-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black text-center" />
-                             </div>
+                             <div className="space-y-4">
+                                 <div className="flex p-1 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/5">
+                                    {["Delivery", "Collection"].map((type) => (
+                                       <button
+                                          key={type}
+                                          type="button"
+                                          onClick={() => setActionType(type as any)}
+                                          className={`flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                                             actionType === type 
+                                                ? "bg-white dark:bg-zinc-700 text-primary shadow-sm" 
+                                                : "text-muted-foreground"
+                                          }`}
+                                       >
+                                          {type}
+                                       </button>
+                                    ))}
+                                 </div>
 
-                             <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Empty Received</label>
-                                <Input name="emptyCylindersReceived" type="number" min="0" defaultValue="0" className="h-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black text-center" />
-                             </div>
+                                 <div className="space-y-1.5">
+                                    <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                       {actionType === "Delivery" ? "Cylinders Delivered" : "Cylinders Collected"}
+                                    </label>
+                                    <div className="relative">
+                                       <Cylinder className={`absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 ${actionType === "Delivery" ? "text-emerald-500" : "text-orange-500"}`} />
+                                       <Input 
+                                          name={actionType === "Delivery" ? "filledCylindersDelivered" : "emptyCylindersReceived"} 
+                                          type="number" 
+                                          min="0" 
+                                          defaultValue="1" 
+                                          className="h-14 pl-12 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black text-center" 
+                                       />
+                                       <input type="hidden" name={actionType === "Delivery" ? "emptyCylindersReceived" : "filledCylindersDelivered"} value="0" />
+                                    </div>
+                                 </div>
+                              </div>
 
                              <div className="space-y-1.5">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Payment Amount</label>

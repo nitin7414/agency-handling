@@ -79,7 +79,7 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
       />
       <ActionButton
         icon={PackageCheck}
-        label="Filled Delv"
+        label="Filled"
         onClick={() => {
           setOpenDialog("filled");
           setSearch("");

@@ -40,7 +40,7 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
             <img src="/logo.png" alt="Shri Shyam Gas Agency Logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <p className="text-[15px] font-black uppercase tracking-[0.2em]">
+            <p className="text-[20px] font-black uppercase tracking-[0.2em]">
   <span className="text-green-600">Shri Shyam</span>
   <span className="text-red-600"> Gas Agency</span>
 </p>
@@ -51,11 +51,13 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
       </div>
 
       <div className="relative">
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <div className="flex items-center rounded-2xl bg-white dark:bg-zinc-900 shadow-xl shadow-black/5 dark:shadow-none focus-within:ring-2 focus-within:ring-blue-600 transition-all overflow-hidden">
+          <div className="pl-4 flex items-center justify-center">
+            <Search className="h-4 w-4 text-muted-foreground" />
+          </div>
           <Input
             placeholder="Search any customer..."
-            className="h-14 pl-12 pr-4 rounded-2xl bg-white dark:bg-zinc-900 border-none shadow-xl shadow-black/5 dark:shadow-none focus-visible:ring-2 focus-visible:ring-blue-600 transition-all"
+            className="h-14 border-none bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);

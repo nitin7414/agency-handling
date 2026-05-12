@@ -110,25 +110,29 @@ export function TransactionClient({ transactions }: { transactions: Transaction[
               </Badge>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="bg-white/5 rounded-2xl p-4 flex items-center gap-3">
-                <div className="h-8 w-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <PackageCheck className="h-4 w-4 text-emerald-500" />
+            <div className="flex flex-col gap-3 mb-6">
+              {t.filledCylindersDelivered > 0 && (
+                <div className="bg-emerald-500/5 dark:bg-emerald-500/10 rounded-2xl p-4 flex items-center gap-4 border border-emerald-500/10">
+                  <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                    <PackageCheck className="h-5 w-5 text-emerald-500" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase text-emerald-600/70 dark:text-emerald-500/70 tracking-widest">Delivered</p>
+                    <p className="text-lg font-black text-foreground">{t.filledCylindersDelivered} Cylinders</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[9px] font-bold uppercase text-muted-foreground">Delivered</p>
-                  <p className="text-sm font-black text-foreground">{t.filledCylindersDelivered} Cyl</p>
+              )}
+              {t.emptyCylindersReceived > 0 && (
+                <div className="bg-orange-500/5 dark:bg-orange-500/10 rounded-2xl p-4 flex items-center gap-4 border border-orange-500/10">
+                  <div className="h-10 w-10 rounded-xl bg-orange-500/10 flex items-center justify-center">
+                    <PackageOpen className="h-5 w-5 text-orange-500" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase text-orange-600/70 dark:text-orange-500/70 tracking-widest">Collected</p>
+                    <p className="text-lg font-black text-foreground">{t.emptyCylindersReceived} Cylinders</p>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white/5 rounded-2xl p-4 flex items-center gap-3">
-                <div className="h-8 w-8 rounded-xl bg-orange-500/10 flex items-center justify-center">
-                  <PackageOpen className="h-4 w-4 text-orange-500" />
-                </div>
-                <div>
-                  <p className="text-[9px] font-bold uppercase text-muted-foreground">Collected</p>
-                  <p className="text-sm font-black text-foreground">{t.emptyCylindersReceived} Cyl</p>
-                </div>
-              </div>
+              )}
             </div>
 
             <div className="flex items-center justify-between pt-6 border-t border-black/5 dark:border-white/5">

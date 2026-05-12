@@ -221,7 +221,11 @@ export default async function DashboardPage() {
                    </div>
                    <div>
                     <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 leading-none">{t.customer.fullName}</p>
-                    <p className="text-[10px] font-medium text-muted-foreground mt-1 tracking-wide">{t.filledCylindersDelivered} cyl delivered</p>
+                    <p className="text-[10px] font-medium text-muted-foreground mt-1 tracking-wide">
+                      {t.filledCylindersDelivered > 0 
+                        ? `${t.filledCylindersDelivered} cyl delivered` 
+                        : `${t.emptyCylindersReceived} cyl collected`}
+                    </p>
                   </div>
                 </div>
                 <span className="text-sm font-black text-primary">

@@ -29,6 +29,7 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+  const [actionType, setActionType] = useState<"Delivery" | "Collection">("Delivery");
   const [message, setMessage] = useState("");
   const router = useRouter();
 
@@ -154,14 +155,39 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
 
                 <input type="hidden" name="customerId" value={selectedCustomer.id} />
                 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">Delivered</label>
-                    <Input name="filledCylindersDelivered" type="number" min="0" defaultValue="1" className="h-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black" />
+                <div className="space-y-4">
+                  <div className="flex p-1 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/5">
+                    {["Delivery", "Collection"].map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => setActionType(type as any)}
+                        className={`flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                          actionType === type 
+                            ? "bg-white dark:bg-zinc-700 text-primary shadow-sm" 
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        {type}
+                      </button>
+                    ))}
                   </div>
+
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">Empty</label>
-                    <Input name="emptyCylindersReceived" type="number" min="0" defaultValue="0" className="h-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black" />
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">
+                      {actionType === "Delivery" ? "Cylinders Delivered" : "Cylinders Collected"}
+                    </label>
+                    <div className="relative">
+                      <Cylinder className={`absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 ${actionType === "Delivery" ? "text-emerald-500" : "text-orange-500"}`} />
+                      <Input 
+                        name={actionType === "Delivery" ? "filledCylindersDelivered" : "emptyCylindersReceived"} 
+                        type="number" 
+                        min="0" 
+                        defaultValue="1" 
+                        className="h-14 pl-12 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black" 
+                      />
+                      <input type="hidden" name={actionType === "Delivery" ? "emptyCylindersReceived" : "filledCylindersDelivered"} value="0" />
+                    </div>
                   </div>
                 </div>
 
