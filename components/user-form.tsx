@@ -72,18 +72,37 @@ export function UserForm({ user }: UserFormProps) {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="password" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">New Password (Optional)</Label>
-          <div className="relative">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Leave blank to keep current"
-              className="pl-11 h-12 rounded-2xl bg-white dark:bg-zinc-900 border-black/5 dark:border-white/10 shadow-sm"
-            />
-          </div>
+        <div className="space-y-4 pt-2 border-t border-black/5 dark:border-white/5">
+           <h4 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-1">Security Update</h4>
+           
+           <div className="space-y-2">
+             <Label htmlFor="currentPassword" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Current Password</Label>
+             <div className="relative">
+               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+               <Input
+                 id="currentPassword"
+                 name="currentPassword"
+                 type="password"
+                 placeholder="Enter current password to save changes"
+                 className="pl-11 h-12 rounded-2xl bg-white dark:bg-zinc-900 border-black/5 dark:border-white/10 shadow-sm focus:ring-2 focus:ring-blue-500/20"
+               />
+             </div>
+             <p className="text-[10px] text-muted-foreground/70 ml-1">Required only if you are setting a new password.</p>
+           </div>
+
+           <div className="space-y-2">
+             <Label htmlFor="password" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">New Password</Label>
+             <div className="relative">
+               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+               <Input
+                 id="password"
+                 name="password"
+                 type="password"
+                 placeholder="Leave blank to keep current"
+                 className="pl-11 h-12 rounded-2xl bg-white dark:bg-zinc-900 border-black/5 dark:border-white/10 shadow-sm focus:ring-2 focus:ring-blue-500/20"
+               />
+             </div>
+           </div>
         </div>
       </div>
 
@@ -112,7 +131,7 @@ export function UserForm({ user }: UserFormProps) {
       {success && (
         <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-3 text-emerald-600 dark:text-emerald-400">
            <CheckCircle2 className="h-5 w-5 shrink-0" />
-           <p className="text-xs font-bold">Your changes have been saved. You might need to re-login for some changes to take effect.</p>
+           <p className="text-xs font-bold">Your profile has been updated successfully. You remain securely logged in on this device.</p>
         </div>
       )}
     </form>

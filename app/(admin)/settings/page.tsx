@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { MobileHeader } from "@/components/mobile-header";
@@ -8,12 +9,17 @@ import { Shield, FileText } from "lucide-react";
 
 export default async function SettingsPage() {
   const session = await getServerSession(authOptions);
+  
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   const admin = await prisma.admin.findUnique({
-    where: { email: session?.user?.email || "" }
+    where: { id: (session.user as any).id }
   });
 
   if (!admin) {
-    return <div>User not found</div>;
+    redirect("/login");
   }
 
   return (

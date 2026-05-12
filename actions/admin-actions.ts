@@ -21,7 +21,27 @@ export async function updateAdminProfile(formData: FormData) {
       return { error: "Invalid input data provided" };
     }
 
-    const { name, email, password } = parsed.data;
+    const { name, email, password, currentPassword } = parsed.data;
+
+    // Fetch current user from DB to verify password
+    const currentUser = await prisma.admin.findUnique({
+      where: { id: (session.user as any).id }
+    });
+
+    if (!currentUser) {
+      return { error: "User not found in database" };
+    }
+
+    // If changing password, current password must be provided and correct
+    if (password) {
+      if (!currentPassword) {
+        return { error: "Current password is required to set a new password" };
+      }
+      const isPasswordValid = await bcrypt.compare(currentPassword, currentUser.passwordHash);
+      if (!isPasswordValid) {
+        return { error: "Incorrect current password" };
+      }
+    }
 
     const updateData: any = { name, email };
     if (password) {
@@ -29,7 +49,7 @@ export async function updateAdminProfile(formData: FormData) {
     }
 
     await prisma.admin.update({
-      where: { id: session.user.id },
+      where: { id: currentUser.id },
       data: updateData,
     });
     revalidatePath("/settings");

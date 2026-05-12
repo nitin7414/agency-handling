@@ -6,6 +6,7 @@ import { Flame, Lock, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export default function LoginPage() {
@@ -98,6 +99,15 @@ export default function LoginPage() {
             >
               {loading ? "Authenticating..." : "Login Securely"}
             </Button>
+
+            <div className="pt-2 text-center">
+              <p className="text-xs text-muted-foreground">
+                Don't have an account?{" "}
+                <Link href="/signup" className="text-primary font-bold hover:underline">
+                  Sign up
+                </Link>
+              </p>
+            </div>
           </form>
         </div>
 
