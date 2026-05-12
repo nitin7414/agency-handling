@@ -2,7 +2,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Root as Dialog, Content as DialogContent, Title as DialogTitle, Trigger as DialogTrigger, Close as DialogClose, Description as DialogDescription } from "@radix-ui/react-dialog";
-import { CreditCard, Edit, PackagePlus, Phone, Search, X, MapPin, History, Plus, Zap, Users, IndianRupee, Trash2 } from "lucide-react";
+import { CreditCard, Edit, PackagePlus, Phone, Search, X, MapPin, History, Plus, Zap, Users, IndianRupee, Trash2, Cylinder } from "lucide-react";
 import { createCustomer, createTransaction, markPaymentDone, deleteCustomer } from "@/actions/customer-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
