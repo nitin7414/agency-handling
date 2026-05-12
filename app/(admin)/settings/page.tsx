@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { MobileHeader } from "@/components/mobile-header";
 import { SignOutButton } from "@/components/sign-out-button";
 import { UserForm } from "@/components/user-form";
-import { Shield } from "lucide-react";
+import { Shield, FileText } from "lucide-react";
 
 export default async function SettingsPage() {
   const session = await getServerSession(authOptions);
@@ -50,6 +50,30 @@ export default async function SettingsPage() {
                 <p className="text-xs text-muted-foreground mt-0.5">Your session is secure and encrypted with industry-standard protocols.</p>
              </div>
           </div>
+        </section>
+
+        {/* Section: Legal & Info */}
+        <section className="space-y-4">
+          <div className="flex items-center gap-2 mb-2">
+             <div className="h-1.5 w-1.5 rounded-full bg-zinc-400" />
+             <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Legal & Info</h2>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3">
+             <a href="/legal/privacy" className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/30 dark:bg-zinc-900/30 border border-black/5 dark:border-white/10 text-[11px] font-bold text-muted-foreground hover:bg-white/50 transition-colors">
+                <Shield className="h-3 w-3" />
+                Privacy Policy
+             </a>
+             <a href="/legal/terms" className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/30 dark:bg-zinc-900/30 border border-black/5 dark:border-white/10 text-[11px] font-bold text-muted-foreground hover:bg-white/50 transition-colors">
+                <FileText className="h-3 w-3" />
+                Terms of Use
+             </a>
+          </div>
+          
+          <p className="text-center text-[10px] font-medium text-zinc-400 pt-4">
+            Shri Shyam Gas Agency Management Portal<br/>
+            v1.0.4 • © 2026 All Rights Reserved
+          </p>
         </section>
 
         <div className="pt-4 px-2">
