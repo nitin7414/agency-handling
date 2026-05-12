@@ -16,6 +16,8 @@ import { DashboardHeader } from "./dashboard-header";
 import { DashboardActions } from "./dashboard-actions";
 import { NewSaleDialog } from "@/components/new-sale-dialog";
 
+export const dynamic = "force-dynamic";
+
 async function getDashboardData() {
   const today = dayRange(); 
   const month = monthRange(); 

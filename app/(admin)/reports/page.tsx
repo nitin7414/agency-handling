@@ -3,6 +3,8 @@ import { Download, Database, FileSpreadsheet, ShieldCheck, ArrowRight, Zap, Clou
 import { MobileHeader } from "@/components/mobile-header";
 import { Button } from "@/components/ui/button";
 
+export const dynamic = "force-dynamic";
+
 export default function ReportsPage() {
   return (
     <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-green-600/15 via-background to-background">
