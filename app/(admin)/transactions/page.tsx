@@ -16,6 +16,10 @@ export default async function TransactionsPage() {
   const safeTransactions = transactions.map((t) => ({
     ...t,
     paymentAmount: Number(t.paymentAmount),
+    customer: {
+      ...t.customer,
+      totalPendingPayment: Number(t.customer.totalPendingPayment),
+    },
   }));
 
   return (

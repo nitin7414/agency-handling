@@ -1,9 +1,9 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Root as Dialog, Content as DialogContent, Title as DialogTitle, Trigger as DialogTrigger, Close as DialogClose, Description as DialogDescription } from "@radix-ui/react-dialog";
-import { CreditCard, Edit, PackagePlus, Phone, Search, X, MapPin, History, Plus, Zap, Users, IndianRupee } from "lucide-react";
-import { createCustomer, createTransaction, markPaymentDone } from "@/actions/customer-actions";
+import { CreditCard, Edit, PackagePlus, Phone, Search, X, MapPin, History, Plus, Zap, Users, IndianRupee, Trash2 } from "lucide-react";
+import { createCustomer, createTransaction, markPaymentDone, deleteCustomer } from "@/actions/customer-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,6 +31,7 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
   const [message, setMessage] = useState("");
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
     if (searchParams.get("new") === "true") {
@@ -183,6 +184,22 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                               </div>
                            </div>
                            <div className="flex items-center gap-2">
+                              <button 
+                                onClick={async () => {
+                                  if (window.confirm("Are you sure you want to delete this customer? This will also delete all their transaction history.")) {
+                                    const res = await deleteCustomer(customer.id);
+                                    if (res.ok) {
+                                      router.refresh();
+                                    } else {
+                                      alert(res.message);
+                                    }
+                                  }
+                                }}
+                                className="h-10 w-10 rounded-full bg-destructive/10 flex items-center justify-center group"
+                                title="Delete Customer"
+                              >
+                                <Trash2 className="h-5 w-5 text-destructive group-hover:scale-110 transition-transform" />
+                              </button>
                               <button 
                                 onClick={() => {
                                   const form = document.getElementById(`edit-form-${customer.id}`);

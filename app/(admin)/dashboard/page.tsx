@@ -101,7 +101,14 @@ async function getDashboardData() {
     emptyToday: dailyTx._sum.emptyCylindersReceived ?? 0, 
     pendingPayments, 
     customersCount, 
-    recentTransactions, 
+    recentTransactions: recentTransactions.map(t => ({
+      ...t,
+      paymentAmount: Number(t.paymentAmount),
+      customer: {
+        ...t.customer,
+        totalPendingPayment: Number(t.customer.totalPendingPayment)
+      }
+    })),
     monthlyChartData,
     marketBalance: totals.marketBalance,
     totalDelivered: totals.totalDelivered,
@@ -183,9 +190,9 @@ export default async function DashboardPage() {
              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Operations</h2>
           </div>
           <div className="grid grid-cols-3 gap-3">
-            <StatBadge label="Total Empty" value={data.marketBalance} icon={PackageOpen} />
-            <StatBadge label="Total Filled" value={data.totalDelivered} icon={PackageCheck} />
             <StatBadge label="Total Due" value={money(data.totalPendingAmount)} icon={IndianRupee} />
+            <StatBadge label="Total Filled" value={data.totalDelivered} icon={PackageCheck} />
+            <StatBadge label="Total Empty" value={data.marketBalance} icon={PackageOpen} />
           </div>
         </section>
 

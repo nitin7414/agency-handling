@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, Area, AreaChart } from "recharts";
 
 const TooltipContent = ({ active, payload }: any) => {
@@ -14,6 +15,11 @@ const TooltipContent = ({ active, payload }: any) => {
 };
 
 export function RevenueChart({ data }: { data: { label: string; revenue: number; cylinders: number }[] }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return <div className="h-64 w-full" />;
+
   return (
     <div className="h-64 w-full">
       <ResponsiveContainer width="100%" height="100%" minWidth={0}>
@@ -51,6 +57,11 @@ export function RevenueChart({ data }: { data: { label: string; revenue: number;
 }
 
 export function CylinderChart({ data }: { data: { label: string; revenue: number; cylinders: number }[] }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return <div className="h-64 w-full" />;
+
   return (
     <div className="h-64 w-full">
       <ResponsiveContainer width="100%" height="100%" minWidth={0}>

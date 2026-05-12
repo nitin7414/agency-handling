@@ -104,3 +104,15 @@ export async function completeTask(taskId: string) {
     console.error("Task update error:", error);
   }
 }
+export async function deleteCustomer(customerId: string) {
+  try {
+    await checkAdmin();
+    await prisma.customer.delete({ where: { id: customerId } });
+    revalidatePath("/customers"); 
+    revalidatePath("/dashboard");
+    return { ok: true, message: "Customer deleted successfully" };
+  } catch (error) {
+    console.error("Action error:", error);
+    return { ok: false, message: "Failed to delete customer." };
+  }
+}

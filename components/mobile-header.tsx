@@ -11,7 +11,7 @@ export function MobileHeader({ title, subtitle, showLogout = false }: { title: s
             <img src="/logo.png" alt="Shri Shyam Gas Agency Logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em]">
+            <p className="text-[15px] font-black uppercase tracking-[0.2em]">
   <span className="text-green-600">Shri Shyam</span>
   <span className="text-red-600"> Gas Agency</span>
 </p>

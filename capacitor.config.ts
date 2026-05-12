@@ -5,9 +5,7 @@ const config: CapacitorConfig = {
   appName: "Shri Shyam Gas Agency",
   webDir: "out",
   server: {
-    // Replace with your Vercel URL once deployed
-    // Example: "https://shri-shyam-gas.vercel.app"
-    url: "https://your-agency-name.vercel.app", 
+    url: "https://agency-handling.vercel.app/", 
     androidScheme: "https",
     allowNavigation: ["*.vercel.app"]
   },
