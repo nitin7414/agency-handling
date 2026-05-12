@@ -46,6 +46,11 @@
     from { height: var(--radix-accordion-content-height); }
     to { height: 0; }
   }
+  @keyframes progress-shrink {
+    from { width: 100%; }
+    to { width: 0%; }
+  }
+  --animate-progress-shrink: progress-shrink 2s linear forwards;
 }
 
 @layer base {

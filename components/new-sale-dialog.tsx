@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Plus, Search, X, ArrowLeft, Cylinder, PackagePlus, IndianRupee, UserPlus, Zap } from "lucide-react";
+import { Plus, Search, X, ArrowLeft, Cylinder, PackagePlus, IndianRupee, UserPlus, Zap, CheckCircle2, PartyPopper } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,6 +31,7 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [actionType, setActionType] = useState<"Delivery" | "Collection">("Delivery");
   const [message, setMessage] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
 
   const filtered = useMemo(() => {
@@ -44,14 +45,19 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
 
   const handleAction = async (formData: FormData) => {
     const res = await createTransaction(null, formData);
-    setMessage(res.message);
     if (res.ok) {
+      setOpen(false);
+      setShowSuccess(true);
       setTimeout(() => {
+        setShowSuccess(false);
         setMessage("");
-        setOpen(false);
         setSelectedCustomer(null);
         setSearch("");
+        router.refresh();
       }, 2000);
+    } else {
+      setMessage(res.message);
+      setTimeout(() => setMessage(""), 3000);
     }
   };
 
@@ -223,6 +229,32 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
           </Dialog.Content>
         </div>
       </Dialog.Portal>
+      <Dialog.Root open={showSuccess} onOpenChange={setShowSuccess}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-[150] bg-black/40 backdrop-blur-sm animate-in fade-in duration-300" />
+          <div className="fixed inset-0 z-[150] flex items-center justify-center p-6">
+             <div className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-[3rem] p-10 shadow-2xl border border-black/5 dark:border-white/10 flex flex-col items-center text-center space-y-6 animate-in zoom-in-95 duration-500">
+                <div className="relative">
+                  <div className="h-24 w-24 rounded-full bg-emerald-500/10 flex items-center justify-center animate-bounce">
+                     <CheckCircle2 className="h-16 w-16 text-emerald-500" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 animate-pulse">
+                     <PartyPopper className="h-10 w-10 text-yellow-500" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Dialog.Title className="text-3xl font-black text-foreground">Done!</Dialog.Title>
+                  <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest px-4">
+                    Sale recorded successfully
+                  </p>
+                </div>
+                <div className="h-1.5 w-32 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                   <div className="h-full bg-primary animate-progress-shrink" />
+                </div>
+             </div>
+          </div>
+        </Dialog.Portal>
+      </Dialog.Root>
     </Dialog.Root>
   );
 }

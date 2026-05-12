@@ -2,7 +2,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Root as Dialog, Content as DialogContent, Title as DialogTitle, Trigger as DialogTrigger, Close as DialogClose, Description as DialogDescription } from "@radix-ui/react-dialog";
-import { CreditCard, Edit, PackagePlus, Phone, Search, X, MapPin, History, Plus, Zap, Users, IndianRupee, Trash2, Cylinder } from "lucide-react";
+import { CreditCard, Edit, PackagePlus, Phone, Search, X, MapPin, History, Plus, Zap, Users, IndianRupee, Trash2, Cylinder, CheckCircle2, PartyPopper } from "lucide-react";
 import { createCustomer, createTransaction, markPaymentDone, deleteCustomer } from "@/actions/customer-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,13 +23,14 @@ type Customer = {
 };
 
 function SubmitButton({ children }: { children: React.ReactNode }) { 
-  return <Button className="w-full bg-primary text-white font-bold h-12 rounded-2xl active:scale-95 transition-transform shadow-lg shadow-primary/20">{children}</Button>; 
+  return <Button type="submit" className="w-full bg-primary text-white font-bold h-12 rounded-2xl active:scale-95 transition-transform shadow-lg shadow-primary/20">{children}</Button>; 
 }
 
 export function CustomerClient({ customers }: { customers: Customer[] }) {
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [actionType, setActionType] = useState<"Delivery" | "Collection">("Delivery");
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -47,8 +48,16 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
 
   async function actionWrapper(action: (state: unknown, form: FormData) => Promise<{ ok: boolean; message: string }>, form: FormData) { 
     const res = await action(null, form); 
-    setMessage(res.message); 
     if (res.ok) {
+       setAddDialogOpen(false);
+       setShowSuccess(true);
+       setTimeout(() => {
+         setShowSuccess(false);
+         setMessage("");
+         router.refresh();
+       }, 2000);
+    } else {
+       setMessage(res.message); 
        setTimeout(() => setMessage(""), 3000);
     }
   }
@@ -74,13 +83,7 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
         </div>
       </section>
 
-      {message && (
-        <div className="rounded-2xl bg-primary/10 border border-primary/20 p-4 animate-in fade-in slide-in-from-top-4">
-          <p className="text-sm font-bold text-primary flex items-center gap-2">
-            <Zap className="h-4 w-4" /> {message}
-          </p>
-        </div>
-      )}
+
 
       {/* Add New Customer Button */}
       <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
@@ -96,6 +99,14 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                <X className="h-6 w-6 text-foreground" />
             </DialogClose>
           </div>
+
+          {message && (
+            <div className="mb-6 rounded-2xl bg-destructive/10 border border-destructive/20 p-4 animate-in fade-in slide-in-from-top-4">
+              <p className="text-sm font-bold text-destructive flex items-center gap-2">
+                <Zap className="h-4 w-4" /> {message}
+              </p>
+            </div>
+          )}
           
           <form action={(form) => actionWrapper(createCustomer, form)} className="space-y-6">
             <div className="space-y-2">
@@ -145,6 +156,31 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                <SubmitButton>Save Customer</SubmitButton>
             </div>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Success Animation Overlay */}
+      <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
+        <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[150] flex items-center justify-center bg-black/40 backdrop-blur-sm p-6 animate-in fade-in duration-300">
+           <div className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-[3rem] p-10 shadow-2xl border border-black/5 dark:border-white/10 flex flex-col items-center text-center space-y-6 animate-in zoom-in-95 duration-500">
+              <div className="relative">
+                <div className="h-24 w-24 rounded-full bg-emerald-500/10 flex items-center justify-center animate-bounce">
+                   <CheckCircle2 className="h-16 w-16 text-emerald-500" />
+                </div>
+                <div className="absolute -top-2 -right-2 animate-pulse">
+                   <PartyPopper className="h-10 w-10 text-yellow-500" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <DialogTitle className="text-3xl font-black text-foreground">Done!</DialogTitle>
+                <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest px-4">
+                  Action completed successfully
+                </p>
+              </div>
+              <div className="h-1.5 w-32 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                 <div className="h-full bg-primary animate-progress-shrink" />
+              </div>
+           </div>
         </DialogContent>
       </Dialog>
 

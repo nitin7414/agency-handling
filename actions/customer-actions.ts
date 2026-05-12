@@ -18,7 +18,11 @@ export async function createCustomer(_: unknown, formData: FormData) {
     await checkAdmin();
     const data = Object.fromEntries(formData);
     const parsed = customerSchema.safeParse(data);
-    if (!parsed.success) return { ok: false, message: "Invalid customer data" };
+    if (!parsed.success) {
+      const errorMsg = parsed.error.issues[0]?.message || "Invalid customer data";
+      const field = parsed.error.issues[0]?.path[0];
+      return { ok: false, message: `${field}: ${errorMsg}` };
+    }
     await prisma.customer.create({ data: parsed.data });
     revalidatePath("/customers"); revalidatePath("/dashboard");
     return { ok: true, message: "Customer created successfully" };
