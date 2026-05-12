@@ -3,7 +3,8 @@ import Link from "next/link";
 import { format, subMonths, startOfMonth, endOfMonth } from "date-fns";
 import { 
   CalendarClock, IndianRupee, PackageCheck, Plus, Users, 
-  Flame, TrendingUp, ArrowRight, Bell, Zap, Cylinder 
+  Flame, TrendingUp, ArrowRight, Bell, Zap, Cylinder, 
+  PackageOpen
 } from "lucide-react";
 import { MobileHeader } from "@/components/mobile-header";
 import { Badge } from "@/components/ui/badge";
@@ -150,12 +151,12 @@ function MetricCard({
 function StatBadge({ label, value, icon: Icon }: { label: string; value: number | string; icon: any }) {
   return (
     <div className="flex flex-col items-center gap-2 rounded-[1.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-sm px-3 py-4 text-center">
-      <div className="p-2 rounded-full bg-primary/5">
-        <Icon className="h-4 w-4 text-primary/60" />
+      <div className="p-2.5 rounded-xl bg-primary shadow-lg shadow-primary/20">
+        <Icon className="h-4 w-4 text-white" />
       </div>
       <div>
-        <p className="text-lg font-black text-foreground leading-none">{value}</p>
-        <p className="mt-1 text-[9px] font-bold uppercase tracking-tighter text-muted-foreground">{label}</p>
+        <p className="text-lg font-black text-zinc-900 dark:text-zinc-100 leading-none">{value}</p>
+        <p className="mt-1 text-[9px] font-bold uppercase tracking-tighter text-zinc-500 dark:text-zinc-400">{label}</p>
       </div>
     </div>
   );
@@ -182,9 +183,9 @@ export default async function DashboardPage() {
              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Operations</h2>
           </div>
           <div className="grid grid-cols-3 gap-3">
-            <StatBadge label="Empty" value={data.marketBalance} icon={PackageCheck} />
-            <StatBadge label="Delivered" value={data.totalDelivered} icon={Cylinder} />
-            <StatBadge label="Pending" value={money(data.totalPendingAmount)} icon={IndianRupee} />
+            <StatBadge label="Total Empty" value={data.marketBalance} icon={PackageOpen} />
+            <StatBadge label="Total Filled" value={data.totalDelivered} icon={PackageCheck} />
+            <StatBadge label="Total Due" value={money(data.totalPendingAmount)} icon={IndianRupee} />
           </div>
         </section>
 

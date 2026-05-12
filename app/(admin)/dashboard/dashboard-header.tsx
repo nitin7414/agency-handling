@@ -36,12 +36,14 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
     <header className="px-4 pt-6 pb-2 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-xl shadow-black/5 overflow-hidden">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white dark:bg-zinc-900 shadow-xl shadow-black/5 dark:shadow-none overflow-hidden">
             <img src="/logo.png" alt="Shri Shyam Gas Agency Logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">Shri Shyam Gas Agency</p>
-            <p className="text-sm font-bold text-muted-foreground leading-none">Agency Hub</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em]">
+  <span className="text-green-600">Shri Shyam</span>
+  <span className="text-red-600"> Gas Agency</span>
+</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -53,7 +55,7 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search any customer..."
-            className="h-14 pl-12 pr-4 rounded-2xl bg-white border-none shadow-xl shadow-black/5 focus-visible:ring-2 focus-visible:ring-blue-600 transition-all"
+            className="h-14 pl-12 pr-4 rounded-2xl bg-white dark:bg-zinc-900 border-none shadow-xl shadow-black/5 dark:shadow-none focus-visible:ring-2 focus-visible:ring-blue-600 transition-all"
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -65,7 +67,7 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
         </div>
 
         {showResults && search.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 z-50 rounded-2xl bg-white border border-black/5 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2">
+          <div className="absolute top-full left-0 right-0 mt-2 z-50 rounded-2xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2">
             {results.length > 0 ? (
               <div className="divide-y divide-black/5 dark:divide-white/5">
                 {results.map((c) => (

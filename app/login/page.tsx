@@ -45,7 +45,8 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <h1 className="text-4xl font-black tracking-tight text-foreground">Shri Shyam Gas Agency</h1>
+            <h1 className="text-4xl font-black tracking-tight text-foreground"><span className="text-green-600">Shri Shyam</span>
+  <span className="text-red-600"> Gas Agency</span></h1>
             <p className="text-muted-foreground text-xs font-bold uppercase tracking-[0.3em] mt-1">Agency Management</p>
           </div>
         </div>

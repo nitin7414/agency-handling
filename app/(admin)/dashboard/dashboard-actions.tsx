@@ -34,7 +34,7 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
       <div className="flex h-16 w-16 items-center justify-center rounded-[1.25rem] bg-primary shadow-lg shadow-primary/20">
         <Icon className="h-7 w-7 text-white" />
       </div>
-      <span className="text-[10px] font-bold text-center leading-tight text-muted-foreground uppercase tracking-widest px-1">
+      <span className="text-[10px] font-bold text-center leading-tight text-white uppercase tracking-widest px-1">
         {label}
       </span>
     </button>

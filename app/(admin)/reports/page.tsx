@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 
 export default function ReportsPage() {
   return (
-    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/15 via-background to-background">
+    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-green-600/15 via-background to-background">
       <MobileHeader
-        title="Reports"
+        title=""
         subtitle="Manage exports & infrastructure"
       />
 

@@ -18,7 +18,7 @@ export default async function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/15 via-background to-background">
-      <MobileHeader title="Profile Settings" subtitle="Manage your account" showLogout={true} />
+      <MobileHeader title="" subtitle="Manage your account" showLogout={true} />
       
       <main className="px-4 pb-24 pt-4 space-y-8">
         
