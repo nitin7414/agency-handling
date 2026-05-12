@@ -1,12 +1,12 @@
 # Graph Report - C:\Users\pc\Desktop\agency-handling  (2026-05-12)
 
 ## Corpus Check
-- 49 files · ~33,450 words
+- 52 files · ~39,458 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 88 nodes · 44 edges · 46 communities detected
-- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.8)
+- 93 nodes · 48 edges · 47 communities detected
+- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -56,34 +56,41 @@
 - [[_COMMUNITY_Community 43|Community 43]]
 - [[_COMMUNITY_Community 44|Community 44]]
 - [[_COMMUNITY_Community 45|Community 45]]
+- [[_COMMUNITY_Community 46|Community 46]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `getDashboardData()` - 4 edges
 2. `GET()` - 3 edges
-3. `onSubmit()` - 2 edges
-4. `dayRange()` - 2 edges
-5. `monthRange()` - 2 edges
-6. `yearRange()` - 2 edges
+3. `updateAdminProfile()` - 2 edges
+4. `createTransaction()` - 2 edges
+5. `onSubmit()` - 2 edges
+6. `handleAction()` - 2 edges
+7. `handleSubmit()` - 2 edges
+8. `dayRange()` - 2 edges
+9. `monthRange()` - 2 edges
+10. `yearRange()` - 2 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `updateAdminProfile()` --calls--> `handleSubmit()`  [INFERRED]
+  C:\Users\pc\Desktop\agency-handling\actions\admin-actions.ts → C:\Users\pc\Desktop\agency-handling\components\user-form.tsx
+- `handleAction()` --calls--> `createTransaction()`  [INFERRED]
+  C:\Users\pc\Desktop\agency-handling\components\new-sale-dialog.tsx → C:\Users\pc\Desktop\agency-handling\actions\customer-actions.ts
 - `getDashboardData()` --calls--> `dayRange()`  [INFERRED]
   C:\Users\pc\Desktop\agency-handling\app\(admin)\dashboard\page.tsx → C:\Users\pc\Desktop\agency-handling\lib\dates.ts
 - `getDashboardData()` --calls--> `monthRange()`  [INFERRED]
   C:\Users\pc\Desktop\agency-handling\app\(admin)\dashboard\page.tsx → C:\Users\pc\Desktop\agency-handling\lib\dates.ts
 - `getDashboardData()` --calls--> `yearRange()`  [INFERRED]
   C:\Users\pc\Desktop\agency-handling\app\(admin)\dashboard\page.tsx → C:\Users\pc\Desktop\agency-handling\lib\dates.ts
-- `GET()` --calls--> `onSubmit()`  [INFERRED]
-  C:\Users\pc\Desktop\agency-handling\app\api\export\transactions\route.ts → C:\Users\pc\Desktop\agency-handling\app\login\page.tsx
 
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.32
-Nodes (4): dayRange(), monthRange(), yearRange(), getDashboardData()
+Cohesion: 0.22
+Nodes (2): createTransaction(), handleAction()
 
 ### Community 1 - "Community 1"
-Cohesion: 0.29
-Nodes (0): 
+Cohesion: 0.32
+Nodes (4): dayRange(), monthRange(), yearRange(), getDashboardData()
 
 ### Community 2 - "Community 2"
 Cohesion: 0.4
@@ -91,10 +98,10 @@ Nodes (2): onSubmit(), GET()
 
 ### Community 3 - "Community 3"
 Cohesion: 0.5
-Nodes (0): 
+Nodes (2): updateAdminProfile(), handleSubmit()
 
 ### Community 4 - "Community 4"
-Cohesion: 0.67
+Cohesion: 0.5
 Nodes (0): 
 
 ### Community 5 - "Community 5"
@@ -106,7 +113,7 @@ Cohesion: 0.67
 Nodes (0): 
 
 ### Community 7 - "Community 7"
-Cohesion: 1.0
+Cohesion: 0.67
 Nodes (0): 
 
 ### Community 8 - "Community 8"
@@ -261,30 +268,32 @@ Nodes (0):
 Cohesion: 1.0
 Nodes (0): 
 
+### Community 46 - "Community 46"
+Cohesion: 1.0
+Nodes (0): 
+
 ## Knowledge Gaps
-- **Thin community `Community 7`** (2 nodes): `check.ts`, `main()`
+- **Thin community `Community 8`** (2 nodes): `check.ts`, `main()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 8`** (2 nodes): `proxy.ts`, `proxy()`
+- **Thin community `Community 9`** (2 nodes): `proxy.ts`, `proxy()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 9`** (2 nodes): `error.tsx`, `Error()`
+- **Thin community `Community 10`** (2 nodes): `error.tsx`, `Error()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 10`** (2 nodes): `layout.tsx`, `RootLayout()`
+- **Thin community `Community 11`** (2 nodes): `layout.tsx`, `RootLayout()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 11`** (2 nodes): `loading.tsx`, `Loading()`
+- **Thin community `Community 12`** (2 nodes): `loading.tsx`, `Loading()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 12`** (2 nodes): `page.tsx`, `Home()`
+- **Thin community `Community 13`** (2 nodes): `page.tsx`, `Home()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 13`** (2 nodes): `layout.tsx`, `AdminLayout()`
+- **Thin community `Community 14`** (2 nodes): `layout.tsx`, `AdminLayout()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 14`** (2 nodes): `page.tsx`, `CustomersPage()`
+- **Thin community `Community 15`** (2 nodes): `page.tsx`, `CustomersPage()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 15`** (2 nodes): `page.tsx`, `SettingsPage()`
+- **Thin community `Community 16`** (2 nodes): `page.tsx`, `SettingsPage()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 16`** (2 nodes): `page.tsx`, `TransactionsPage()`
+- **Thin community `Community 17`** (2 nodes): `page.tsx`, `TransactionsPage()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 17`** (2 nodes): `sign-out-button.tsx`, `SignOutButton()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 18`** (2 nodes): `splash-screen.tsx`, `SplashScreen()`
+- **Thin community `Community 18`** (2 nodes): `sign-out-button.tsx`, `SignOutButton()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 19`** (2 nodes): `theme-provider.tsx`, `ThemeProvider()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -332,13 +341,15 @@ Nodes (0):
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 41`** (1 nodes): `input.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 42`** (1 nodes): `textarea.tsx`
+- **Thin community `Community 42`** (1 nodes): `label.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 43`** (1 nodes): `auth.ts`
+- **Thin community `Community 43`** (1 nodes): `textarea.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 44`** (1 nodes): `uploadthing.ts`
+- **Thin community `Community 44`** (1 nodes): `auth.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 45`** (1 nodes): `next-auth.d.ts`
+- **Thin community `Community 45`** (1 nodes): `uploadthing.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 46`** (1 nodes): `next-auth.d.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions

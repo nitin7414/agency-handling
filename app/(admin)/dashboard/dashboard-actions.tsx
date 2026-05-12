@@ -47,12 +47,12 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <Dialog.Content 
             aria-describedby={undefined}
-            className="w-[92%] max-w-md rounded-[2.5rem] bg-white dark:bg-zinc-900 p-8 shadow-2xl animate-in zoom-in-95 duration-300 outline-none border border-black/5 dark:border-white/10 max-h-[90vh] overflow-y-auto custom-scrollbar"
+            className="w-[92%] max-w-md rounded-[2.5rem] bg-white dark:bg-zinc-900 p-8 shadow-2xl animate-in zoom-in-95 fade-in duration-200 ease-in-out outline-none border border-black/5 dark:border-white/10 max-h-[90vh] overflow-y-auto custom-scrollbar"
           >
             <div className="flex items-center justify-between mb-8">
               <Dialog.Title className="text-xl font-black tracking-tight text-zinc-900 dark:text-white">{title}</Dialog.Title>
-              <Dialog.Close className="rounded-full p-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
-                <X className="h-4 w-4 text-zinc-500" />
+              <Dialog.Close className="h-11 w-11 rounded-full p-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-all active:scale-95 flex items-center justify-center">
+                <X className="h-5 w-5 text-zinc-500" />
               </Dialog.Close>
             </div>
             {children}
@@ -71,7 +71,7 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
       />
       <ActionButton
         icon={PackageOpen}
-        label="Empty Recv"
+        label="Empty"
         onClick={() => {
           setOpenDialog("empty");
           setSearch("");
@@ -101,11 +101,11 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
         onOpenChange={(open: boolean) => !open && setOpenDialog(null)}
       >
         <div className="flex flex-col items-center justify-center py-4">
-          <div className="relative p-6 bg-white rounded-[2.5rem] mb-8 border border-black/5 shadow-inner">
+          <div className="relative p-6 bg-white rounded-[3rem] mb-8 border border-black/5 shadow-inner flex items-center justify-center aspect-square w-64 mx-auto overflow-hidden">
             <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=GasProPayment"
+              src="/qr_code.jpeg"
               alt="QR Code"
-              className="w-48 h-48"
+              className="w-full h-full object-contain"
             />
           </div>
           <div className="text-center space-y-2">
@@ -123,7 +123,7 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
           key={type}
           title={
             type === "empty"
-              ? "Empty Cylinders Received"
+              ? "Empty Cylinders In Market"
               : type === "filled"
               ? "Filled Cylinders Delivered"
               : "Pending Payments"
@@ -151,7 +151,7 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
                     <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{customer.fullName}</span>
                     <span className="text-sm font-black text-primary">
                       {type === "empty"
-                        ? customer.totalEmptyCylindersReturned
+                        ? customer.totalCylindersReceived - customer.totalEmptyCylindersReturned
                         : type === "filled"
                         ? customer.totalCylindersReceived
                         : money(Number(customer.totalPendingPayment))}

@@ -18,7 +18,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\check.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_check_ts",
-      "community": 7,
+      "community": 8,
       "norm_label": "check.ts"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\check.ts",
       "source_location": "L8",
       "id": "check_main",
-      "community": 7,
+      "community": 8,
       "norm_label": "main()"
     },
     {
@@ -72,7 +72,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\proxy.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_proxy_ts",
-      "community": 8,
+      "community": 9,
       "norm_label": "proxy.ts"
     },
     {
@@ -81,7 +81,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\proxy.ts",
       "source_location": "L4",
       "id": "proxy_proxy",
-      "community": 8,
+      "community": 9,
       "norm_label": "proxy()"
     },
     {
@@ -94,12 +94,30 @@
       "norm_label": "tailwind.config.ts"
     },
     {
+      "label": "admin-actions.ts",
+      "file_type": "code",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\admin-actions.ts",
+      "source_location": "L1",
+      "id": "c_users_pc_desktop_agency_handling_actions_admin_actions_ts",
+      "community": 3,
+      "norm_label": "admin-actions.ts"
+    },
+    {
+      "label": "updateAdminProfile()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\admin-actions.ts",
+      "source_location": "L10",
+      "id": "admin_actions_updateadminprofile",
+      "community": 3,
+      "norm_label": "updateadminprofile()"
+    },
+    {
       "label": "customer-actions.ts",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\customer-actions.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_actions_customer_actions_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "customer-actions.ts"
     },
     {
@@ -108,7 +126,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\customer-actions.ts",
       "source_location": "L6",
       "id": "customer_actions_createcustomer",
-      "community": 1,
+      "community": 0,
       "norm_label": "createcustomer()"
     },
     {
@@ -117,7 +135,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\customer-actions.ts",
       "source_location": "L15",
       "id": "customer_actions_updatecustomer",
-      "community": 1,
+      "community": 0,
       "norm_label": "updatecustomer()"
     },
     {
@@ -126,7 +144,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\customer-actions.ts",
       "source_location": "L24",
       "id": "customer_actions_createtransaction",
-      "community": 1,
+      "community": 0,
       "norm_label": "createtransaction()"
     },
     {
@@ -135,7 +153,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\customer-actions.ts",
       "source_location": "L39",
       "id": "customer_actions_markpaymentdone",
-      "community": 1,
+      "community": 0,
       "norm_label": "markpaymentdone()"
     },
     {
@@ -144,7 +162,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\customer-actions.ts",
       "source_location": "L51",
       "id": "customer_actions_createtask",
-      "community": 1,
+      "community": 0,
       "norm_label": "createtask()"
     },
     {
@@ -153,7 +171,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\customer-actions.ts",
       "source_location": "L59",
       "id": "customer_actions_completetask",
-      "community": 1,
+      "community": 0,
       "norm_label": "completetask()"
     },
     {
@@ -171,7 +189,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\error.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_error_tsx",
-      "community": 9,
+      "community": 10,
       "norm_label": "error.tsx"
     },
     {
@@ -180,7 +198,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\error.tsx",
       "source_location": "L3",
       "id": "error_error",
-      "community": 9,
+      "community": 10,
       "norm_label": "error()"
     },
     {
@@ -189,7 +207,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\layout.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_layout_tsx",
-      "community": 10,
+      "community": 11,
       "norm_label": "layout.tsx"
     },
     {
@@ -198,7 +216,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\layout.tsx",
       "source_location": "L18",
       "id": "layout_rootlayout",
-      "community": 10,
+      "community": 11,
       "norm_label": "rootlayout()"
     },
     {
@@ -207,7 +225,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\loading.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_loading_tsx",
-      "community": 11,
+      "community": 12,
       "norm_label": "loading.tsx"
     },
     {
@@ -216,7 +234,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\loading.tsx",
       "source_location": "L1",
       "id": "loading_loading",
-      "community": 11,
+      "community": 12,
       "norm_label": "loading()"
     },
     {
@@ -234,7 +252,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\page.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_page_tsx",
-      "community": 12,
+      "community": 13,
       "norm_label": "page.tsx"
     },
     {
@@ -243,7 +261,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\page.tsx",
       "source_location": "L2",
       "id": "page_home",
-      "community": 12,
+      "community": 13,
       "norm_label": "home()"
     },
     {
@@ -252,7 +270,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\layout.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_admin_layout_tsx",
-      "community": 13,
+      "community": 14,
       "norm_label": "layout.tsx"
     },
     {
@@ -261,7 +279,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\layout.tsx",
       "source_location": "L6",
       "id": "layout_adminlayout",
-      "community": 13,
+      "community": 14,
       "norm_label": "adminlayout()"
     },
     {
@@ -270,7 +288,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\customers\\page.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_admin_customers_page_tsx",
-      "community": 14,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -279,7 +297,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\customers\\page.tsx",
       "source_location": "L6",
       "id": "page_customerspage",
-      "community": 14,
+      "community": 15,
       "norm_label": "customerspage()"
     },
     {
@@ -288,7 +306,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\dashboard-actions.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_admin_dashboard_dashboard_actions_tsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "dashboard-actions.tsx"
     },
     {
@@ -297,7 +315,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\dashboard-actions.tsx",
       "source_location": "L29",
       "id": "dashboard_actions_actionbutton",
-      "community": 4,
+      "community": 5,
       "norm_label": "actionbutton()"
     },
     {
@@ -306,7 +324,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\dashboard-actions.tsx",
       "source_location": "L43",
       "id": "dashboard_actions_modal",
-      "community": 4,
+      "community": 5,
       "norm_label": "modal()"
     },
     {
@@ -324,34 +342,34 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\page.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_admin_dashboard_page_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "page.tsx"
     },
     {
       "label": "getDashboardData()",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\page.tsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "id": "page_getdashboarddata",
-      "community": 0,
+      "community": 1,
       "norm_label": "getdashboarddata()"
     },
     {
       "label": "MetricCard()",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\page.tsx",
-      "source_location": "L102",
+      "source_location": "L112",
       "id": "page_metriccard",
-      "community": 0,
+      "community": 1,
       "norm_label": "metriccard()"
     },
     {
       "label": "StatBadge()",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\page.tsx",
-      "source_location": "L140",
+      "source_location": "L150",
       "id": "page_statbadge",
-      "community": 0,
+      "community": 1,
       "norm_label": "statbadge()"
     },
     {
@@ -369,16 +387,16 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\settings\\page.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_admin_settings_page_tsx",
-      "community": 15,
+      "community": 16,
       "norm_label": "page.tsx"
     },
     {
       "label": "SettingsPage()",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\settings\\page.tsx",
-      "source_location": "L5",
+      "source_location": "L9",
       "id": "page_settingspage",
-      "community": 15,
+      "community": 16,
       "norm_label": "settingspage()"
     },
     {
@@ -387,7 +405,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\transactions\\page.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_app_admin_transactions_page_tsx",
-      "community": 16,
+      "community": 17,
       "norm_label": "page.tsx"
     },
     {
@@ -396,7 +414,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\transactions\\page.tsx",
       "source_location": "L6",
       "id": "page_transactionspage",
-      "community": 16,
+      "community": 17,
       "norm_label": "transactionspage()"
     },
     {
@@ -477,7 +495,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\analytics-charts.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_components_analytics_charts_tsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "analytics-charts.tsx"
     },
     {
@@ -486,7 +504,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\analytics-charts.tsx",
       "source_location": "L4",
       "id": "analytics_charts_tooltipcontent",
-      "community": 3,
+      "community": 4,
       "norm_label": "tooltipcontent()"
     },
     {
@@ -495,7 +513,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\analytics-charts.tsx",
       "source_location": "L16",
       "id": "analytics_charts_revenuechart",
-      "community": 3,
+      "community": 4,
       "norm_label": "revenuechart()"
     },
     {
@@ -504,7 +522,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\analytics-charts.tsx",
       "source_location": "L53",
       "id": "analytics_charts_cylinderchart",
-      "community": 3,
+      "community": 4,
       "norm_label": "cylinderchart()"
     },
     {
@@ -522,25 +540,25 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\customer-client.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_components_customer_client_tsx",
-      "community": 5,
+      "community": 6,
       "norm_label": "customer-client.tsx"
     },
     {
       "label": "SubmitButton()",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\customer-client.tsx",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "customer_client_submitbutton",
-      "community": 5,
+      "community": 6,
       "norm_label": "submitbutton()"
     },
     {
       "label": "actionWrapper()",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\customer-client.tsx",
-      "source_location": "L37",
+      "source_location": "L46",
       "id": "customer_client_actionwrapper",
-      "community": 5,
+      "community": 6,
       "norm_label": "actionwrapper()"
     },
     {
@@ -553,12 +571,30 @@
       "norm_label": "mobile-header.tsx"
     },
     {
+      "label": "new-sale-dialog.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\new-sale-dialog.tsx",
+      "source_location": "L1",
+      "id": "c_users_pc_desktop_agency_handling_components_new_sale_dialog_tsx",
+      "community": 0,
+      "norm_label": "new-sale-dialog.tsx"
+    },
+    {
+      "label": "handleAction()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\new-sale-dialog.tsx",
+      "source_location": "L44",
+      "id": "new_sale_dialog_handleaction",
+      "community": 0,
+      "norm_label": "handleaction()"
+    },
+    {
       "label": "sign-out-button.tsx",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\sign-out-button.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_components_sign_out_button_tsx",
-      "community": 17,
+      "community": 18,
       "norm_label": "sign-out-button.tsx"
     },
     {
@@ -567,26 +603,8 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\sign-out-button.tsx",
       "source_location": "L6",
       "id": "sign_out_button_signoutbutton",
-      "community": 17,
+      "community": 18,
       "norm_label": "signoutbutton()"
-    },
-    {
-      "label": "splash-screen.tsx",
-      "file_type": "code",
-      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\splash-screen.tsx",
-      "source_location": "L1",
-      "id": "c_users_pc_desktop_agency_handling_components_splash_screen_tsx",
-      "community": 18,
-      "norm_label": "splash-screen.tsx"
-    },
-    {
-      "label": "SplashScreen()",
-      "file_type": "code",
-      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\splash-screen.tsx",
-      "source_location": "L6",
-      "id": "splash_screen_splashscreen",
-      "community": 18,
-      "norm_label": "splashscreen()"
     },
     {
       "label": "theme-provider.tsx",
@@ -634,6 +652,24 @@
       "norm_label": "transaction-client.tsx"
     },
     {
+      "label": "user-form.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\user-form.tsx",
+      "source_location": "L1",
+      "id": "c_users_pc_desktop_agency_handling_components_user_form_tsx",
+      "community": 3,
+      "norm_label": "user-form.tsx"
+    },
+    {
+      "label": "handleSubmit()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\user-form.tsx",
+      "source_location": "L22",
+      "id": "user_form_handlesubmit",
+      "community": 3,
+      "norm_label": "handlesubmit()"
+    },
+    {
       "label": "badge.tsx",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\ui\\badge.tsx",
@@ -661,12 +697,21 @@
       "norm_label": "input.tsx"
     },
     {
+      "label": "label.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\ui\\label.tsx",
+      "source_location": "L1",
+      "id": "c_users_pc_desktop_agency_handling_components_ui_label_tsx",
+      "community": 42,
+      "norm_label": "label.tsx"
+    },
+    {
       "label": "textarea.tsx",
       "file_type": "code",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\ui\\textarea.tsx",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_components_ui_textarea_tsx",
-      "community": 42,
+      "community": 43,
       "norm_label": "textarea.tsx"
     },
     {
@@ -675,7 +720,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\auth.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_lib_auth_ts",
-      "community": 43,
+      "community": 44,
       "norm_label": "auth.ts"
     },
     {
@@ -684,7 +729,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\dates.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_lib_dates_ts",
-      "community": 0,
+      "community": 1,
       "norm_label": "dates.ts"
     },
     {
@@ -693,7 +738,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\dates.ts",
       "source_location": "L1",
       "id": "dates_dayrange",
-      "community": 0,
+      "community": 1,
       "norm_label": "dayrange()"
     },
     {
@@ -702,7 +747,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\dates.ts",
       "source_location": "L2",
       "id": "dates_monthrange",
-      "community": 0,
+      "community": 1,
       "norm_label": "monthrange()"
     },
     {
@@ -711,7 +756,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\dates.ts",
       "source_location": "L3",
       "id": "dates_yearrange",
-      "community": 0,
+      "community": 1,
       "norm_label": "yearrange()"
     },
     {
@@ -738,7 +783,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\uploadthing.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_lib_uploadthing_ts",
-      "community": 44,
+      "community": 45,
       "norm_label": "uploadthing.ts"
     },
     {
@@ -747,7 +792,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\utils.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_lib_utils_ts",
-      "community": 6,
+      "community": 7,
       "norm_label": "utils.ts"
     },
     {
@@ -756,7 +801,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\utils.ts",
       "source_location": "L4",
       "id": "utils_cn",
-      "community": 6,
+      "community": 7,
       "norm_label": "cn()"
     },
     {
@@ -765,7 +810,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\lib\\utils.ts",
       "source_location": "L8",
       "id": "utils_money",
-      "community": 6,
+      "community": 7,
       "norm_label": "money()"
     },
     {
@@ -792,7 +837,7 @@
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\types\\next-auth.d.ts",
       "source_location": "L1",
       "id": "c_users_pc_desktop_agency_handling_types_next_auth_d_ts",
-      "community": 45,
+      "community": 46,
       "norm_label": "next-auth.d.ts"
     }
   ],
@@ -820,6 +865,30 @@
       "source": "c_users_pc_desktop_agency_handling_proxy_ts",
       "target": "proxy_proxy",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\actions\\admin-actions.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_src": "c_users_pc_desktop_agency_handling_actions_admin_actions_ts",
+      "_tgt": "admin_actions_updateadminprofile",
+      "source": "c_users_pc_desktop_agency_handling_actions_admin_actions_ts",
+      "target": "admin_actions_updateadminprofile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\user-form.tsx",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "admin_actions_updateadminprofile",
+      "_tgt": "user_form_handlesubmit",
+      "source": "admin_actions_updateadminprofile",
+      "target": "user_form_handlesubmit"
     },
     {
       "relation": "contains",
@@ -892,6 +961,18 @@
       "source": "c_users_pc_desktop_agency_handling_actions_customer_actions_ts",
       "target": "customer_actions_completetask",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\new-sale-dialog.tsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_src": "new_sale_dialog_handleaction",
+      "_tgt": "customer_actions_createtransaction",
+      "source": "customer_actions_createtransaction",
+      "target": "new_sale_dialog_handleaction"
     },
     {
       "relation": "contains",
@@ -993,7 +1074,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\page.tsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "_src": "c_users_pc_desktop_agency_handling_app_admin_dashboard_page_tsx",
       "_tgt": "page_getdashboarddata",
@@ -1005,7 +1086,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\page.tsx",
-      "source_location": "L102",
+      "source_location": "L112",
       "weight": 1.0,
       "_src": "c_users_pc_desktop_agency_handling_app_admin_dashboard_page_tsx",
       "_tgt": "page_metriccard",
@@ -1017,7 +1098,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\dashboard\\page.tsx",
-      "source_location": "L140",
+      "source_location": "L150",
       "weight": 1.0,
       "_src": "c_users_pc_desktop_agency_handling_app_admin_dashboard_page_tsx",
       "_tgt": "page_statbadge",
@@ -1065,7 +1146,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\app\\(admin)\\settings\\page.tsx",
-      "source_location": "L5",
+      "source_location": "L9",
       "weight": 1.0,
       "_src": "c_users_pc_desktop_agency_handling_app_admin_settings_page_tsx",
       "_tgt": "page_settingspage",
@@ -1173,7 +1254,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\customer-client.tsx",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0,
       "_src": "c_users_pc_desktop_agency_handling_components_customer_client_tsx",
       "_tgt": "customer_client_submitbutton",
@@ -1185,12 +1266,24 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\customer-client.tsx",
-      "source_location": "L37",
+      "source_location": "L46",
       "weight": 1.0,
       "_src": "c_users_pc_desktop_agency_handling_components_customer_client_tsx",
       "_tgt": "customer_client_actionwrapper",
       "source": "c_users_pc_desktop_agency_handling_components_customer_client_tsx",
       "target": "customer_client_actionwrapper",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\new-sale-dialog.tsx",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_src": "c_users_pc_desktop_agency_handling_components_new_sale_dialog_tsx",
+      "_tgt": "new_sale_dialog_handleaction",
+      "source": "c_users_pc_desktop_agency_handling_components_new_sale_dialog_tsx",
+      "target": "new_sale_dialog_handleaction",
       "confidence_score": 1.0
     },
     {
@@ -1203,18 +1296,6 @@
       "_tgt": "sign_out_button_signoutbutton",
       "source": "c_users_pc_desktop_agency_handling_components_sign_out_button_tsx",
       "target": "sign_out_button_signoutbutton",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\splash-screen.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_src": "c_users_pc_desktop_agency_handling_components_splash_screen_tsx",
-      "_tgt": "splash_screen_splashscreen",
-      "source": "c_users_pc_desktop_agency_handling_components_splash_screen_tsx",
-      "target": "splash_screen_splashscreen",
       "confidence_score": 1.0
     },
     {
@@ -1239,6 +1320,18 @@
       "_tgt": "theme_toggle_themetoggle",
       "source": "c_users_pc_desktop_agency_handling_components_theme_toggle_tsx",
       "target": "theme_toggle_themetoggle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\pc\\Desktop\\agency-handling\\components\\user-form.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "c_users_pc_desktop_agency_handling_components_user_form_tsx",
+      "_tgt": "user_form_handlesubmit",
+      "source": "c_users_pc_desktop_agency_handling_components_user_form_tsx",
+      "target": "user_form_handlesubmit",
       "confidence_score": 1.0
     },
     {

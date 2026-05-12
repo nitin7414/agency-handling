@@ -8,31 +8,37 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 export async function updateAdminProfile(formData: FormData) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) throw new Error("Unauthorized");
-
-  const data = Object.fromEntries(formData.entries());
-  const parsed = adminSchema.safeParse(data);
-
-  if (!parsed.success) {
-    return { error: parsed.error.flatten().fieldErrors };
-  }
-
-  const { name, email, password } = parsed.data;
-
-  const updateData: any = { name, email };
-  if (password) {
-    updateData.passwordHash = await bcrypt.hash(password, 10);
-  }
-
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user || (session.user as any).role !== "admin") {
+      return { error: "Unauthorized: Admin access required" };
+    }
+
+    const data = Object.fromEntries(formData.entries());
+    const parsed = adminSchema.safeParse(data);
+
+    if (!parsed.success) {
+      return { error: "Invalid input data provided" };
+    }
+
+    const { name, email, password } = parsed.data;
+
+    const updateData: any = { name, email };
+    if (password) {
+      updateData.passwordHash = await bcrypt.hash(password, 10);
+    }
+
     await prisma.admin.update({
-      where: { email: session.user.email },
+      where: { id: session.user.id },
       data: updateData,
     });
     revalidatePath("/settings");
     return { success: true };
   } catch (error: any) {
-    return { error: "Failed to update profile. Email might be already in use." };
+    console.error("Admin action error:", error);
+    if (error.code === 'P2002') {
+      return { error: "This email is already in use by another administrator." };
+    }
+    return { error: "Failed to update profile. Please ensure you are logged in correctly." };
   }
 }

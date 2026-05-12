@@ -13,6 +13,7 @@ import { money } from "@/lib/utils";
 import { prisma } from "@/lib/prisma";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardActions } from "./dashboard-actions";
+import { NewSaleDialog } from "@/components/new-sale-dialog";
 
 async function getDashboardData() {
   const today = dayRange(); 
@@ -80,6 +81,12 @@ async function getDashboardData() {
     })
   );
 
+  const totals = allCustomers.reduce((acc, c) => ({
+    marketBalance: acc.marketBalance + (c.totalCylindersReceived - c.totalEmptyCylindersReturned),
+    totalDelivered: acc.totalDelivered + c.totalCylindersReceived,
+    totalPending: acc.totalPending + Number(c.totalPendingPayment)
+  }), { marketBalance: 0, totalDelivered: 0, totalPending: 0 });
+
   return { 
     dailyRevenue: Number(dailyRevenue._sum.amount ?? 0), 
     monthlyRevenue: Number(monthlyRevenue._sum.amount ?? 0), 
@@ -95,6 +102,9 @@ async function getDashboardData() {
     customersCount, 
     recentTransactions, 
     monthlyChartData,
+    marketBalance: totals.marketBalance,
+    totalDelivered: totals.totalDelivered,
+    totalPendingAmount: totals.totalPending,
     allCustomers: allCustomers.map(c => ({ ...c, totalPendingPayment: Number(c.totalPendingPayment) }))
   };
 }
@@ -144,7 +154,7 @@ function StatBadge({ label, value, icon: Icon }: { label: string; value: number 
         <Icon className="h-4 w-4 text-primary/60" />
       </div>
       <div>
-        <p className="text-xl font-black text-foreground leading-none">{value}</p>
+        <p className="text-lg font-black text-foreground leading-none">{value}</p>
         <p className="mt-1 text-[9px] font-bold uppercase tracking-tighter text-muted-foreground">{label}</p>
       </div>
     </div>
@@ -172,20 +182,15 @@ export default async function DashboardPage() {
              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Operations</h2>
           </div>
           <div className="grid grid-cols-3 gap-3">
-            <StatBadge label="Sold" value={data.dailyCylinders} icon={Zap} />
-            <StatBadge label="Month" value={data.monthlyCylinders} icon={Cylinder} />
-            <StatBadge label="Empty" value={data.emptyToday} icon={PackageCheck} />
+            <StatBadge label="Empty" value={data.marketBalance} icon={PackageCheck} />
+            <StatBadge label="Delivered" value={data.totalDelivered} icon={Cylinder} />
+            <StatBadge label="Pending" value={money(data.totalPendingAmount)} icon={IndianRupee} />
           </div>
         </section>
 
         {/* ── Quick Actions ── */}
-        <section className="grid grid-cols-2 gap-4">
-          <Link
-            href="/customers"
-            className="flex items-center justify-center gap-3 rounded-2xl bg-primary px-4 py-4 text-sm font-bold text-white shadow-xl shadow-primary/20 touch-card w-full"
-          >
-            <Plus className="h-5 w-5" /> New Sale
-          </Link>
+        <section>
+          <NewSaleDialog customers={data.allCustomers} />
         </section>
 
         {/* ── Recent Activity (Moved up) ── */}

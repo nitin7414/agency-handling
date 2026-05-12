@@ -1,10 +1,10 @@
 import { SignOutButton } from "@/components/sign-out-button";
-import { ThemeToggle } from "@/components/theme-toggle";
+
 import { Flame } from "lucide-react";
 
 export function MobileHeader({ title, subtitle, showLogout = false }: { title: string; subtitle?: string; showLogout?: boolean }) {
   return (
-    <header className="px-4 pt-6 pb-2 space-y-4">
+    <header className="relative bg-white border-b border-black/5 px-4 pb-6 space-y-4" style={{ paddingTop: "calc(1.5rem + env(safe-area-inset-top))" }}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-xl shadow-black/5 overflow-hidden">
@@ -16,7 +16,7 @@ export function MobileHeader({ title, subtitle, showLogout = false }: { title: s
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
+
           {showLogout && <SignOutButton />}
         </div>
       </div>

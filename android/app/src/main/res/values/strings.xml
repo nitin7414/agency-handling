@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Shri Shyam Gas Agency</string>
+    <string name="title_activity_main">Shri Shyam Gas Agency</string>
+    <string name="package_name">com.shri_shyam_gas_agency</string>
+    <string name="custom_url_scheme">com.shri_shyam_gas_agency</string>
+</resources>

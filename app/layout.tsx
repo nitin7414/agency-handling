@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SplashScreen } from "@/components/splash-screen";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,15 +18,17 @@ export const viewport: Viewport = { themeColor: "#0f766e", width: "device-width"
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-background`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <SplashScreen />
-          {children}
+          <main className="min-h-screen pb-[calc(4rem+env(safe-area-inset-bottom))]">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

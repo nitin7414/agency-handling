@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const items = [
   { href: "/dashboard", label: "Home", icon: Home },
-  { href: "/customers", label: "Users", icon: Users },
+  { href: "/customers", label: "Customers", icon: Users },
   { href: "/reports", label: "Stats", icon: BarChart3 },
   { href: "/settings", label: "More", icon: Settings }
 ];
@@ -15,7 +15,7 @@ const items = [
 export function BottomNav() {
   const pathname = usePathname();
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 glass border-t border-white/5 safe-bottom">
+    <nav className="fixed inset-x-0 bottom-0 z-50 bg-white border-t border-black/5 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="grid grid-cols-4 h-16">
         {items.map((item) => {
           const Icon = item.icon;

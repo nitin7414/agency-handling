@@ -29,8 +29,39 @@ const nextConfig = {
     },
   },
 
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "X-Frame-Options",
+            value: "DENY",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://utfs.io https://img.clerk.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://utfs.io; frame-ancestors 'none'; upgrade-insecure-requests;",
+          },
+        ],
+      },
+    ];
+  },
+
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+      },
+    ],
   },
 
   turbopack: {},

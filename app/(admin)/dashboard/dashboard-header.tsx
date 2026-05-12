@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Search, Flame, User, X, MapPin, Phone, FileText } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { ThemeToggle } from "@/components/theme-toggle";
+
 import * as Dialog from "@radix-ui/react-dialog";
 import { money } from "@/lib/utils";
 
@@ -45,7 +45,6 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
         </div>
       </div>
 
@@ -54,7 +53,7 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search any customer..."
-            className="h-14 pl-12 pr-4 rounded-2xl bg-white dark:bg-zinc-900 border-none shadow-xl shadow-black/5 dark:shadow-none focus-visible:ring-2 focus-visible:ring-blue-600 transition-all"
+            className="h-14 pl-12 pr-4 rounded-2xl bg-white border-none shadow-xl shadow-black/5 focus-visible:ring-2 focus-visible:ring-blue-600 transition-all"
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -66,7 +65,7 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
         </div>
 
         {showResults && search.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 z-50 rounded-2xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2">
+          <div className="absolute top-full left-0 right-0 mt-2 z-50 rounded-2xl bg-white border border-black/5 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2">
             {results.length > 0 ? (
               <div className="divide-y divide-black/5 dark:divide-white/5">
                 {results.map((c) => (
@@ -138,14 +137,18 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
                       </div>
                    </div>
 
-                   <div className="grid grid-cols-2 gap-3">
-                      <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-white/5 text-center">
-                        <p className="text-[9px] font-bold uppercase text-muted-foreground mb-1">Delivered</p>
-                        <p className="text-lg font-black text-zinc-900 dark:text-white">{selectedCustomer.totalCylindersReceived}</p>
+                   <div className="grid grid-cols-3 gap-2">
+                      <div className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-white/5 text-center">
+                        <p className="text-[8px] font-bold uppercase text-muted-foreground mb-1">Delivered</p>
+                        <p className="text-sm font-black text-zinc-900 dark:text-white">{selectedCustomer.totalCylindersReceived}</p>
                       </div>
-                      <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-white/5 text-center">
-                        <p className="text-[9px] font-bold uppercase text-muted-foreground mb-1">Due Amount</p>
-                        <p className="text-lg font-black text-blue-600">{money(selectedCustomer.totalPendingPayment)}</p>
+                      <div className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-white/5 text-center">
+                        <p className="text-[8px] font-bold uppercase text-muted-foreground mb-1">In Market</p>
+                        <p className="text-sm font-black text-zinc-900 dark:text-white">{selectedCustomer.totalCylindersReceived - selectedCustomer.totalEmptyCylindersReturned}</p>
+                      </div>
+                      <div className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-white/5 text-center">
+                        <p className="text-[8px] font-bold uppercase text-muted-foreground mb-1">Due</p>
+                        <p className="text-sm font-black text-blue-600">{money(selectedCustomer.totalPendingPayment)}</p>
                       </div>
                    </div>
 

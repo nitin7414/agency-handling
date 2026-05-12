@@ -7,7 +7,8 @@ import { prisma } from "@/lib/prisma";
 const credentialsSchema = z.object({ email: z.string().email(), password: z.string().min(8) });
 
 export const authOptions: NextAuthOptions = {
-  session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 30 },
+  secret: process.env.NEXTAUTH_SECRET,
+  session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 7 }, // 7 days
   pages: { signIn: "/login" },
   providers: [
     CredentialsProvider({
@@ -20,17 +21,23 @@ export const authOptions: NextAuthOptions = {
         if (!admin) return null;
         const valid = await bcrypt.compare(parsed.data.password, admin.passwordHash);
         if (!valid) return null;
-        return { id: admin.id, name: admin.name, email: admin.email };
+        return { id: admin.id, name: admin.name, email: admin.email, role: "admin" };
       }
     })
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.sub = user.id;
+      if (user) {
+        token.sub = user.id;
+        token.role = (user as any).role;
+      }
       return token;
     },
     async session({ session, token }) {
-      if (session.user && token.sub) session.user.id = token.sub;
+      if (session.user) {
+        session.user.id = token.sub as string;
+        (session.user as any).role = token.role;
+      }
       return session;
     }
   }
