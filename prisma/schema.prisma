@@ -79,6 +79,7 @@ model Transaction {
   filledCylindersDelivered Int            @default(0)
   emptyCylindersReceived Int              @default(0)
   paymentAmount          Decimal          @default(0) @db.Decimal(12, 2)
+  paidAmount             Decimal          @default(0) @db.Decimal(12, 2)
   paymentStatus          PaymentStatus    @default(Pending)
   deliveryDate           DateTime         @default(now())
   notes                  String?

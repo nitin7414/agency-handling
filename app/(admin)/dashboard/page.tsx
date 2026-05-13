@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { CylinderChart } from "@/components/analytics-charts";
 import { dayRange, monthRange, yearRange } from "@/lib/dates";
 import { money } from "@/lib/utils";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma-fresh";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardActions } from "./dashboard-actions";
 import { NewSaleDialog } from "@/components/new-sale-dialog";
@@ -106,6 +106,7 @@ async function getDashboardData() {
     recentTransactions: recentTransactions.map(t => ({
       ...t,
       paymentAmount: Number(t.paymentAmount),
+      paidAmount: Number(t.paidAmount),
       customer: {
         ...t.customer,
         totalPendingPayment: Number(t.customer.totalPendingPayment)
@@ -257,9 +258,16 @@ export default async function DashboardPage() {
                           </p>
                         </div>
                       </div>
-                      <span className="text-sm font-black text-primary">
-                        {money(Number(t.paymentAmount))}
-                      </span>
+                      <div className="text-right flex flex-col items-end">
+                        <span className="text-sm font-black text-primary">
+                          {money(Number(t.paymentAmount))}
+                        </span>
+                        {t.paymentStatus === "Pending" && (
+                          <span className="text-[9px] font-bold text-muted-foreground -mt-1">
+                            Paid: {money(Number(t.paidAmount))}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   ))
                 ) : (

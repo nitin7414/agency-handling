@@ -1,7 +1,7 @@
 // customers/page.tsx
 import { MobileHeader } from "@/components/mobile-header";
 import { CustomerClient } from "@/components/customer-client";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma-fresh";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +24,7 @@ export default async function CustomersPage() {
     transactions: c.transactions.map((t) => ({
       ...t,
       paymentAmount: Number(t.paymentAmount),
+      paidAmount: Number(t.paidAmount),
     })),
     paymentHistory: c.paymentHistory.map((p) => ({
       ...p,

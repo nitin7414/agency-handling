@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma-fresh";
 import { MobileHeader } from "@/components/mobile-header";
 import { TransactionClient } from "@/components/transaction-client";
 
@@ -17,6 +17,7 @@ export default async function TransactionsPage() {
   const safeTransactions = transactions.map((t) => ({
     ...t,
     paymentAmount: Number(t.paymentAmount),
+    paidAmount: Number(t.paidAmount),
     customer: {
       ...t.customer,
       totalPendingPayment: Number(t.customer.totalPendingPayment),

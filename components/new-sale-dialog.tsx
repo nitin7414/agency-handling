@@ -54,7 +54,7 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
         setSelectedCustomer(null);
         setSearch("");
         router.refresh();
-      }, 2000);
+      }, 1000);
     } else {
       setMessage(res.message);
       setTimeout(() => setMessage(""), 3000);
@@ -62,6 +62,7 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
   };
 
   return (
+    <>
     <Dialog.Root open={open} onOpenChange={(val) => {
       setOpen(val);
       if (!val) {
@@ -199,21 +200,30 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">Payment Amount</label>
-                  <div className="relative">
-                    <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
-                    <Input name="paymentAmount" type="number" min="0" placeholder="0.00" className="h-14 pl-12 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-xl font-black text-primary" />
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">Due Amount</label>
+                    <div className="relative">
+                      <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input name="dueAmount" type="number" min="0" required placeholder="0.00" className="h-14 pl-10 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">Paid Amount</label>
+                    <div className="relative">
+                      <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
+                      <Input name="paidAmount" type="number" min="0" required placeholder="0.00" className="h-14 pl-10 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-lg font-black text-primary" />
+                    </div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">Status</label>
-                    <select name="paymentStatus" className="h-14 w-full rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner px-4 text-sm font-black text-foreground outline-none">
-                      <option value="Pending">Pending</option>
-                      <option value="Done">Paid Full</option>
-                    </select>
+                    <div className="h-14 w-full rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center px-4">
+                       <span className="text-xs font-black uppercase text-muted-foreground tracking-widest">Auto-Calculated</span>
+                    </div>
+                    <input type="hidden" name="paymentStatus" value="Pending" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-2">Date</label>
@@ -231,32 +241,20 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
           </Dialog.Content>
         </div>
       </Dialog.Portal>
-      <Dialog.Root open={showSuccess} onOpenChange={setShowSuccess}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-[150] bg-black/40 backdrop-blur-sm animate-in fade-in duration-300" />
-          <div className="fixed inset-0 z-[150] flex items-center justify-center p-6">
-             <div className="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-[3rem] p-10 shadow-2xl border border-black/5 dark:border-white/10 flex flex-col items-center text-center space-y-6 animate-in zoom-in-95 duration-500">
-                <div className="relative">
-                  <div className="h-24 w-24 rounded-full bg-emerald-500/10 flex items-center justify-center animate-bounce">
-                     <CheckCircle2 className="h-16 w-16 text-emerald-500" />
-                  </div>
-                  <div className="absolute -top-2 -right-2 animate-pulse">
-                     <PartyPopper className="h-10 w-10 text-yellow-500" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Dialog.Title className="text-3xl font-black text-foreground">Done!</Dialog.Title>
-                  <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest px-4">
-                    Sale recorded successfully
-                  </p>
-                </div>
-                <div className="h-1.5 w-32 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                   <div className="h-full bg-primary animate-progress-shrink" />
-                </div>
-             </div>
-          </div>
-        </Dialog.Portal>
-      </Dialog.Root>
+
     </Dialog.Root>
+    {/* SUCCESS TOAST */}
+    {showSuccess && (
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[300] bg-emerald-500 text-white px-10 py-8 rounded-[2.5rem] shadow-[0_25px_60px_-15px_rgba(16,185,129,0.5)] flex flex-col items-center gap-4 animate-in zoom-in-95 fade-in duration-300 backdrop-blur-md border border-white/20 text-center">
+         <div className="h-16 w-16 rounded-full bg-white/20 flex items-center justify-center animate-bounce">
+            <PartyPopper className="h-10 w-10 text-white" />
+         </div>
+         <div>
+            <h4 className="text-2xl font-black mb-1">Success!</h4>
+            <p className="text-xs font-bold text-emerald-50 uppercase tracking-[0.2em]">Entry Recorded</p>
+         </div>
+      </div>
+    )}
+    </>
   );
 }

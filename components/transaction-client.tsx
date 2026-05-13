@@ -16,6 +16,7 @@ type Transaction = {
   filledCylindersDelivered: number;
   emptyCylindersReceived: number;
   paymentAmount: number;
+  paidAmount: number;
   paymentStatus: "Pending" | "Done";
   deliveryDate: Date;
   notes: string | null;
@@ -155,10 +156,19 @@ export function TransactionClient({ transactions }: { transactions: Transaction[
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <IndianRupee className="h-3 w-3 text-primary" />
-                      <span className="text-base font-black text-primary">
-                        {money(t.paymentAmount)}
-                      </span>
+                      <div className="text-right">
+                        <div className="flex items-center gap-1.5">
+                           <IndianRupee className="h-3 w-3 text-primary" />
+                           <span className="text-base font-black text-primary">
+                             {money(t.paymentAmount)}
+                           </span>
+                        </div>
+                        {t.paymentStatus === "Pending" && (
+                           <p className="text-[9px] font-bold text-muted-foreground -mt-1">
+                             Paid: {money(t.paidAmount)}
+                           </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </article>
