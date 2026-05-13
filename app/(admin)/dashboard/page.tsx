@@ -202,6 +202,18 @@ export default async function DashboardPage() {
               </div>
             </section>
 
+            {/* ── Quick Actions ── */}
+            <section>
+              <div className="flex items-center gap-2 mb-4">
+                 <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                 <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Quick Sale</h2>
+              </div>
+              <NewSaleDialog customers={data.allCustomers} />
+            </section>
+          </div>
+
+          {/* Right Column: Activity & Quick Actions */}
+          <div className="sm:col-span-4 space-y-8">
             {/* ── Monthly Delivery Chart ── */}
             <section>
                <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 p-8 shadow-xl shadow-black/5">
@@ -213,18 +225,6 @@ export default async function DashboardPage() {
                     <CylinderChart data={data.monthlyChartData} />
                   </div>
                </div>
-            </section>
-          </div>
-
-          {/* Right Column: Activity & Quick Actions */}
-          <div className="sm:col-span-4 space-y-8">
-            {/* ── Quick Actions ── */}
-            <section>
-              <div className="flex items-center gap-2 mb-4">
-                 <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                 <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Quick Sale</h2>
-              </div>
-              <NewSaleDialog customers={data.allCustomers} />
             </section>
 
             {/* ── Recent Activity ── */}
