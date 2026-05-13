@@ -32,10 +32,11 @@ export async function createCustomer(_: unknown, formData: FormData) {
   }
 }
 
-export async function updateCustomer(customerId: string, formData: FormData) {
+export async function updateCustomer(_: unknown, formData: FormData) {
   try {
     await checkAdmin();
     const data = Object.fromEntries(formData);
+    const customerId = data.id as string;
     const parsed = customerSchema.safeParse(data);
     if (!parsed.success) return { ok: false, message: "Invalid customer data" };
     await prisma.customer.update({ where: { id: customerId }, data: parsed.data });
@@ -54,6 +55,16 @@ export async function createTransaction(_: unknown, formData: FormData) {
     if (!parsed.success) return { ok: false, message: "Invalid transaction data" };
     await prisma.$transaction(async (tx) => {
       const data = parsed.data;
+      
+      // Sanity check: Ensure market count doesn't go below zero
+      if (data.emptyCylindersReceived > 0) {
+        const customer = await tx.customer.findUniqueOrThrow({ where: { id: data.customerId } });
+        const currentMarket = customer.totalCylindersReceived - customer.totalEmptyCylindersReturned;
+        if (data.emptyCylindersReceived > currentMarket) {
+          throw new Error(`Cannot collect ${data.emptyCylindersReceived} empties. Customer only has ${currentMarket} cylinders.`);
+        }
+      }
+
       const transaction = await tx.transaction.create({ data: { ...data, revenueCountedAt: data.paymentStatus === "Done" ? new Date() : null } });
       await tx.customer.update({ where: { id: data.customerId }, data: { totalCylindersReceived: { increment: data.filledCylindersDelivered }, totalEmptyCylindersReturned: { increment: data.emptyCylindersReceived }, totalPendingPayment: data.paymentStatus === "Pending" ? { increment: data.paymentAmount } : undefined } });
       await tx.cylinderInventory.create({ data: { movementType: "StockOut", filledQuantity: data.filledCylindersDelivered * -1, emptyQuantity: data.emptyCylindersReceived, reason: `Transaction ${transaction.id}` } });

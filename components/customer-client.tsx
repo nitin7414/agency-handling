@@ -1,21 +1,13 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { 
-  Root as Dialog, 
-  Content as DialogContent, 
-  Title as DialogTitle, 
-  Trigger as DialogTrigger, 
-  Close as DialogClose,
-  Overlay as DialogOverlay,
-  Portal as DialogPortal,
-} from "@radix-ui/react-dialog";
+import { Root as Dialog, Content as DialogContent, Title as DialogTitle, Trigger as DialogTrigger, Close as DialogClose, Portal as DialogPortal } from "@radix-ui/react-dialog";
 import { 
   Edit, Phone, Search, X, MapPin, Plus, Zap, Users, 
   IndianRupee, Trash2, CheckCircle2, PartyPopper,
   ArrowRight, LayoutGrid, Filter, Info
 } from "lucide-react";
-import { createCustomer, createTransaction, markPaymentDone, deleteCustomer } from "@/actions/customer-actions";
+import { createCustomer, createTransaction, markPaymentDone, deleteCustomer, updateCustomer } from "@/actions/customer-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,7 +15,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { money } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { UploadButton } from "@/lib/uploadthing";
-import { updateCustomer } from "@/actions/customer-actions";
 
 type Customer = {
   id: string; fullName: string; phoneNumber: string; fullAddress: string; area: string; notes: string | null; 
@@ -36,26 +27,6 @@ type Customer = {
 function SubmitButton({ children }: { children: React.ReactNode }) { 
   return <Button type="submit" className="w-full bg-primary text-white font-bold h-11 rounded-xl active:scale-95 transition-transform shadow-lg shadow-primary/20">{children}</Button>; 
 }
-
-// ─── Reusable modal shell ────────────────────────────────────────────────────
-// Renders the Radix overlay + centered card via a Portal so it never
-// interferes with the sidebar's stacking context.
-function Modal({ children }: { children: React.ReactNode }) {
-  return (
-    <DialogPortal>
-      {/* Overlay sits at z-[150] — above page content, below nothing important */}
-      <DialogOverlay className="fixed inset-0 z-[150] bg-background/80 backdrop-blur-xl animate-in fade-in duration-300" />
-      {/* Content is centered on top of the overlay */}
-      <DialogContent
-        aria-describedby={undefined}
-        className="fixed left-1/2 top-1/2 z-[160] -translate-x-1/2 -translate-y-1/2 w-full px-4 animate-in fade-in zoom-in-95 duration-300 focus:outline-none"
-      >
-        {children}
-      </DialogContent>
-    </DialogPortal>
-  );
-}
-// ─────────────────────────────────────────────────────────────────────────────
 
 export function CustomerClient({ customers }: { customers: Customer[] }) {
   const [query, setQuery] = useState("");
@@ -95,29 +66,12 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
 
   return (
     <main className="space-y-8">
-
-      {/* ── Success Toast Overlay ── */}
-      {showSuccess && (
-        <div className="fixed inset-0 z-[300] flex items-center justify-center pointer-events-none">
-          <div className="flex flex-col items-center gap-4 bg-white dark:bg-zinc-950 border border-black/5 dark:border-white/10 rounded-[2.5rem] shadow-2xl px-12 py-10 animate-in fade-in zoom-in-95 duration-300">
-            <div className="h-20 w-20 rounded-full bg-emerald-500/10 flex items-center justify-center">
-              <CheckCircle2 className="h-10 w-10 text-emerald-500" />
-            </div>
-            <div className="text-center space-y-1">
-              <p className="text-xl font-black text-foreground tracking-tight">Done!</p>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-1.5 justify-center">
-                <PartyPopper className="h-3 w-3 text-primary" /> Successfully saved
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
+      
       {/* 2-Column Desktop Layout */}
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 items-start">
         
         {/* Left Column: Search & Quick Actions */}
-        <div className="sm:col-span-4 space-y-6 sm:sticky sm:top-4 z-0">
+        <div className="sm:col-span-4 space-y-6 sm:sticky sm:top-4">
           <section>
             <div className="flex items-center gap-2 mb-4">
                <div className="h-1.5 w-1.5 rounded-full bg-primary" />
@@ -137,101 +91,108 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                 </div>
               </div>
 
-              {/* ── Add Customer Dialog ── */}
               <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
                 <DialogTrigger asChild>
                   <Button className="w-full h-12 rounded-xl bg-primary text-white font-bold text-sm shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
                     <Plus className="h-5 w-5" /> Add New Customer
                   </Button>
                 </DialogTrigger>
+                <DialogPortal>
+                  <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[200] bg-background/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center animate-in fade-in duration-300">
+                    <div className="w-full max-w-xl bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-2xl border border-black/5 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
+                      <div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+                         <div>
+                            <DialogTitle className="text-xl font-black text-foreground tracking-tight">New Customer</DialogTitle>
+                            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Onboarding</p>
+                         </div>
+                         <DialogClose className="h-10 w-10 rounded-xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-lg active:scale-90 transition-transform hover:bg-zinc-100 dark:hover:bg-zinc-800">
+                            <X className="h-5 w-5" />
+                         </DialogClose>
+                      </div>
 
-                <Modal>
-                  <div className="w-full max-w-xl mx-auto bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-2xl border border-black/5 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
-                    <div className="p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50">
-                       <div>
-                          <DialogTitle className="text-xl font-black text-foreground tracking-tight">New Customer</DialogTitle>
-                          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Onboarding</p>
-                       </div>
-                       <DialogClose className="h-10 w-10 rounded-xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-lg active:scale-90 transition-transform">
-                          <X className="h-5 w-5" />
-                       </DialogClose>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
-                      {message && (
-                        <div className="mb-6 rounded-xl bg-destructive/10 border border-destructive/20 p-3 animate-in fade-in slide-in-from-top-4">
-                          <p className="text-xs font-bold text-destructive flex items-center gap-2">
-                            <Zap className="h-3 w-3" /> {message}
-                          </p>
-                        </div>
-                      )}
-                      
-                      <form action={(form) => actionWrapper(createCustomer, form)} className="space-y-6">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-1.5">
-                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
-                             <Input name="fullName" placeholder="John Doe" required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                      <div className="flex-1 overflow-y-auto p-5 sm:p-6 custom-scrollbar bg-white dark:bg-zinc-950">
+                        {message && (
+                          <div className="mb-6 rounded-xl bg-destructive/10 border border-destructive/20 p-3 animate-in fade-in slide-in-from-top-4">
+                            <p className="text-xs font-bold text-destructive flex items-center gap-2">
+                              <Zap className="h-3 w-3" /> {message}
+                            </p>
                           </div>
-                          <div className="space-y-1.5">
-                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Phone</label>
-                             <Input name="phoneNumber" placeholder="+91..." required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
-                          </div>
-                        </div>
+                        )}
                         
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-1.5">
-                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Area</label>
-                             <Input name="area" placeholder="Locality" required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                        <form action={(form) => actionWrapper(createCustomer, form)} className="space-y-6">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
+                               <Input name="fullName" placeholder="John Doe" required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                            </div>
+                            <div className="space-y-1.5">
+                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Phone</label>
+                               <Input name="phoneNumber" placeholder="+91..." required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                            </div>
                           </div>
-                          <div className="space-y-1.5">
-                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Address</label>
-                             <Input name="fullAddress" placeholder="Full address" required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                          
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Area</label>
+                               <Input name="area" placeholder="Locality" required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                            </div>
+                            <div className="space-y-1.5">
+                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Address</label>
+                               <Input name="fullAddress" placeholder="Full address" required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="space-y-3">
-                           <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">KYC (Optional)</label>
-                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                             {[
-                               { name: "aadharUrl", label: "Aadhar" },
-                               { name: "panUrl", label: "PAN" },
-                               { name: "foodLicenseUrl", label: "Food" },
-                               { name: "gstProofUrl", label: "GST" }
-                             ].map((doc) => (
-                               <div key={doc.name} className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-dashed border-zinc-200 dark:border-zinc-800 flex flex-col items-center gap-2">
-                                 <span className="text-[8px] font-bold uppercase text-muted-foreground">{doc.label}</span>
-                                 <UploadButton
-                                    endpoint="customerDocument"
-                                    onClientUploadComplete={(res) => {
-                                      const input = document.getElementById(`new-${doc.name}`) as HTMLInputElement;
-                                      if (input) input.value = res[0].url;
-                                      alert(`${doc.label} uploaded!`);
-                                    }}
-                                    appearance={{
-                                      button: "bg-primary text-white text-[8px] px-3 h-7 rounded-lg font-bold w-full after:bg-primary/80",
-                                      allowedContent: "hidden",
-                                      container: "w-full flex-col gap-0",
-                                    }}
-                                    content={{ button: "Upload" }}
-                                  />
-                                  <input type="hidden" name={doc.name} id={`new-${doc.name}`} />
-                               </div>
-                             ))}
+                           <div className="space-y-4">
+                              <div className="flex items-center gap-2">
+                                 <div className="h-px flex-1 bg-black/5 dark:bg-white/5"></div>
+                                 <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">KYC Documents (Optional)</span>
+                                 <div className="h-px flex-1 bg-black/5 dark:bg-white/5"></div>
+                              </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  {[
+    { name: "aadharUrl", label: "Aadhar Card" },
+    { name: "panUrl", label: "PAN Card" },
+    { name: "foodLicenseUrl", label: "Food License" },
+    { name: "gstProofUrl", label: "GST Proof" }
+  ].map((doc) => (
+    <div key={doc.name} className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-dashed border-zinc-200 dark:border-zinc-800 flex flex-col items-center justify-center gap-2 text-center overflow-hidden">
+      <span className="text-[10px] font-bold uppercase text-muted-foreground">{doc.label}</span>
+      <div className="w-full mt-1 flex justify-center">
+         <UploadButton
+            endpoint="customerDocument"
+            onClientUploadComplete={(res) => {
+              const input = document.getElementById(`new-${doc.name}`) as HTMLInputElement;
+              if (input) input.value = res[0].url;
+              alert(`${doc.label} uploaded!`);
+            }}
+            content={{
+              button: "Upload" // Overrides the long "Choose file..." text
+            }}
+            appearance={{ 
+              container: "w-full",
+              button: "bg-primary/10 text-primary h-8 text-[10px] px-3 rounded-lg font-bold w-full truncate",
+              allowedContent: "hidden" // Hides the extra sub-text that causes overflow
+            }}
+          />
+      </div>
+      <input type="hidden" name={doc.name} id={`new-${doc.name}`} />
+    </div>
+  ))}
+                              </div>
                            </div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                           <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Notes</label>
-                           <Textarea name="notes" placeholder="Optional notes..." className="rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner min-h-[80px]" />
-                        </div>
-                        
-                        <div className="pt-4">
-                           <SubmitButton>Register Customer</SubmitButton>
-                        </div>
-                      </form>
+                          <div className="space-y-1.5 pt-2">
+                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Notes</label>
+                             <Textarea name="notes" placeholder="Optional notes..." className="rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner min-h-[80px]" />
+                          </div>
+                          
+                          <div className="pt-4">
+                             <SubmitButton>Register Customer</SubmitButton>
+                          </div>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                </Modal>
+                  </DialogContent>
+                </DialogPortal>
               </Dialog>
             </div>
           </section>
@@ -283,146 +244,282 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                     <div className="grid grid-cols-3 gap-3 mb-6">
                        <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl p-3.5 text-center border border-black/5 dark:border-white/5">
                           <p className="text-[8px] font-bold uppercase text-muted-foreground tracking-wider mb-1">Market</p>
-                          <p className="text-base font-black text-primary">{customer.totalCylindersReceived - customer.totalEmptyCylindersReturned}</p>
+                          <p className="text-base font-black text-primary">{Math.max(0, customer.totalCylindersReceived - customer.totalEmptyCylindersReturned)}</p>
                        </div>
                        <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl p-3.5 text-center border border-black/5 dark:border-white/5">
                           <p className="text-[8px] font-bold uppercase text-muted-foreground tracking-wider mb-1">Total</p>
                           <p className="text-base font-black text-foreground">{customer.totalCylindersReceived}</p>
                        </div>
                        <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl p-3.5 text-center border border-black/5 dark:border-white/5">
-                          <p className="text-[8px] font-bold uppercase text-muted-foreground tracking-wider mb-1">ID</p>
-                          <p className="text-base font-black text-foreground">#{customer.id.slice(0, 6).toUpperCase()}</p>
+                          <p className="text-[8px] font-bold uppercase text-muted-foreground tracking-wider mb-1">Pending</p>
+                          <p className="text-base font-black text-destructive">{money(Number(customer.totalPendingPayment))}</p>
                        </div>
                     </div>
 
                     {/* Actions */}
                     <div className="flex items-center gap-2">
-                       {/* ── Profile Dialog ── */}
                        <Dialog>
                           <DialogTrigger asChild>
-                             <Button className="flex-1 h-12 rounded-2xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-xs uppercase tracking-widest hover:bg-primary dark:hover:bg-primary hover:text-white transition-all">
+                             <Button className="flex-1 h-12 rounded-2xl bg-blue-600 text-white font-bold text-xs uppercase tracking-widest">
                                 Profile <ArrowRight className="ml-2 h-4 w-4" />
                              </Button>
                           </DialogTrigger>
+                          <DialogPortal>
+                            <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[200] bg-background/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center animate-in fade-in duration-200">
+                               <div className="w-full max-w-2xl bg-white dark:bg-zinc-950 rounded-[2rem] shadow-2xl border border-black/10 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
+                                  
+                                  {/* HEADER */}
+                                  <div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+                                     <div className="flex items-center gap-4">
+                                        <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-inner">
+                                           {customer.fullName.charAt(0)}
+                                        </div>
+                                        <div>
+                                           <DialogTitle className="text-xl font-black text-foreground tracking-tight">{customer.fullName}</DialogTitle>
+                                           <div className="flex items-center gap-3 mt-1">
+                                              <Badge className="bg-primary/10 text-primary border-none rounded-md px-2 py-0.5 font-bold text-[10px] uppercase tracking-widest">{customer.area}</Badge>
+                                              <a href={`tel:${customer.phoneNumber}`} className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-primary transition-colors">
+                                                 <Phone className="h-3 w-3" /> {customer.phoneNumber}
+                                              </a>
+                                           </div>
+                                        </div>
+                                     </div>
+                                     <div className="flex items-center gap-1.5 sm:gap-2">
+                                        
+                                        {/* Nested Edit Dialog */}
+                                        <Dialog>
+                                          <DialogTrigger asChild>
+                                             <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary transition-colors text-muted-foreground" title="Edit Profile">
+                                               <Edit className="h-4 w-4" />
+                                             </Button>
+                                          </DialogTrigger>
+                                          <DialogPortal>
+                                             <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[210] bg-background/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center animate-in fade-in duration-300">
+                                                <div className="w-full max-w-xl bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-2xl border border-black/5 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
+                                                   <div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+                                                      <div>
+                                                         <DialogTitle className="text-xl font-black text-foreground tracking-tight">Edit Customer</DialogTitle>
+                                                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Update Profile</p>
+                                                      </div>
+                                                      <DialogClose className="h-10 w-10 rounded-xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-lg active:scale-90 transition-transform hover:bg-zinc-100 dark:hover:bg-zinc-800">
+                                                         <X className="h-5 w-5" />
+                                                      </DialogClose>
+                                                   </div>
 
-                          <Modal>
-                            <div className="w-full max-w-3xl mx-auto bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-2xl border border-black/5 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
-                                <div className="p-8 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50">
-                                   <div className="flex items-center gap-6">
-                                      <div className="h-16 w-16 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-3xl">
-                                         {customer.fullName.charAt(0)}
-                                      </div>
-                                      <div>
-                                         <DialogTitle className="text-3xl font-black text-foreground tracking-tight">{customer.fullName}</DialogTitle>
-                                         <div className="flex items-center gap-4 mt-2">
-                                            <Badge className="bg-primary/10 text-primary border-none rounded-lg px-3 py-1 font-bold text-[10px] uppercase tracking-widest">{customer.area}</Badge><span className="text-[10px] font-black text-muted-foreground bg-black/5 dark:bg-white/5 px-2 py-1 rounded-lg ml-2">#{customer.id.slice(0, 6).toUpperCase()}</span>
-                                            <a href={`tel:${customer.phoneNumber}`} className="flex items-center gap-2 text-xs font-bold text-muted-foreground hover:text-primary transition-colors">
-                                               <Phone className="h-3.5 w-3.5" /> {customer.phoneNumber}
-                                            </a>
-                                         </div>
-                                      </div>
-                                   </div>
-                                   <DialogClose className="h-12 w-12 rounded-2xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-lg active:scale-90 transition-transform">
-                                      <X className="h-6 w-6" />
-                                   </DialogClose>
-                                </div>
+                                                   <div className="flex-1 overflow-y-auto p-5 sm:p-6 custom-scrollbar bg-white dark:bg-zinc-950">
+                                                      <form action={(form) => actionWrapper(updateCustomer, form)} className="space-y-6">
+                                                         <input type="hidden" name="id" value={customer.id} />
+                                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                            <div className="space-y-1.5">
+                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
+                                                               <Input name="fullName" defaultValue={customer.fullName} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                                                            </div>
+                                                            <div className="space-y-1.5">
+                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Phone</label>
+                                                               <Input name="phoneNumber" defaultValue={customer.phoneNumber} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                                                            </div>
+                                                         </div>
+                                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                            <div className="space-y-1.5">
+                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Area</label>
+                                                               <Input name="area" defaultValue={customer.area} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                                                            </div>
+                                                            <div className="space-y-1.5">
+                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Address</label>
+                                                               <Input name="fullAddress" defaultValue={customer.fullAddress} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                                                            </div>
+                                                         </div>
+                                                         <div className="space-y-1.5">
+                                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Notes</label>
+                                                            <Textarea name="notes" defaultValue={customer.notes || ""} placeholder="Optional notes..." className="rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner min-h-[80px]" />
+                                                         </div>
+                                                         <div className="pt-4">
+                                                            <SubmitButton>Save Changes</SubmitButton>
+                                                         </div>
+                                                      </form>
+                                                   </div>
+                                                </div>
+                                             </DialogContent>
+                                          </DialogPortal>
+                                        </Dialog>
 
-                                <div className="flex-1 overflow-y-auto p-8 custom-scrollbar space-y-8">
-                                   <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                      <div className="space-y-6">
-                                         <div className="space-y-2">
-                                            <h3 className="text-[10px] font-bold uppercase tracking-widest text-primary">Contact</h3>
-                                            <div className="rounded-2xl bg-zinc-50 dark:bg-zinc-900 p-6 space-y-4 border border-black/5">
-                                               <div className="flex items-start gap-4">
-                                                  <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                                                  <p className="text-sm font-medium text-foreground">{customer.fullAddress}</p>
-                                               </div>
-                                               <div className="flex items-center gap-4">
-                                                  <Phone className="h-5 w-5 text-primary shrink-0" />
-                                                  <p className="text-sm font-bold text-foreground">{customer.phoneNumber}</p>
-                                               </div>
-                                            </div>
-                                         </div>
-                                      </div>
-                                      <div className="space-y-6">
-                                         <h3 className="text-[10px] font-bold uppercase tracking-widest text-primary">Inventory</h3>
-                                         <div className="grid grid-cols-2 gap-4">
-                                            <div className="rounded-2xl bg-emerald-500/5 p-6 border border-emerald-500/10 text-center">
-                                               <p className="text-[8px] font-bold uppercase text-emerald-600 mb-1">Delivered</p>
-                                               <p className="text-2xl font-black text-emerald-600">{customer.totalCylindersReceived}</p>
-                                            </div>
-                                            <div className="rounded-2xl bg-orange-500/5 p-6 border border-orange-500/10 text-center">
-                                               <p className="text-[8px] font-bold uppercase text-orange-600 mb-1">Market</p>
-                                               <p className="text-2xl font-black text-orange-600">{customer.totalCylindersReceived - customer.totalEmptyCylindersReturned}</p>
-                                            </div>
-                                         </div>
-                                      </div>
-                                   </section>
-                                </div>
-                            </div>
-                          </Modal>
+                                        <Button 
+                                          variant="ghost" 
+                                          size="icon" 
+                                          onClick={() => { if(confirm("Are you sure you want to delete this customer?")) deleteCustomer(customer.id).then(() => router.refresh()); }} 
+                                          className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive transition-colors text-muted-foreground"
+                                          title="Delete Customer"
+                                        >
+                                          <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                        <DialogClose className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-sm active:scale-90 transition-transform ml-1 hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                                          <X className="h-4 w-4" />
+                                        </DialogClose>
+                                     </div>
+                                  </div>
+
+                                  {/* BODY (Scrollable including Documents and Recent Activity) */}
+                                  <div className="flex-1 overflow-y-auto custom-scrollbar bg-white dark:bg-zinc-950">
+                                     <div className="p-5 sm:p-6 space-y-8">
+                                        {/* Counts Section */}
+                                        <div className="grid grid-cols-2 gap-4">
+                                           <div className="rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 p-5 border border-emerald-100 dark:border-emerald-500/20 text-center shadow-sm">
+                                              <p className="text-[10px] font-bold uppercase text-emerald-600 dark:text-emerald-400 mb-1 tracking-widest">Delivered Cylinders</p>
+                                              <p className="text-3xl font-black text-emerald-700 dark:text-emerald-500">{customer.totalCylindersReceived}</p>
+                                           </div>
+                                           <div className="rounded-2xl bg-orange-50 dark:bg-orange-500/10 p-5 border border-orange-100 dark:border-orange-500/20 text-center shadow-sm">
+                                              <p className="text-[10px] font-bold uppercase text-orange-600 dark:text-orange-400 mb-1 tracking-widest">Market (Empty)</p>
+                                              <p className="text-3xl font-black text-orange-700 dark:text-orange-500">{Math.max(0, customer.totalCylindersReceived - customer.totalEmptyCylindersReturned)}</p>
+                                           </div>
+                                        </div>
+
+                                        {/* Documents Section */}
+                                        <div className="space-y-4">
+                                           <h3 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                             <div className="h-px flex-1 bg-black/5 dark:bg-white/5"></div>
+                                             KYC Documents
+                                             <div className="h-px flex-1 bg-black/5 dark:bg-white/5"></div>
+                                           </h3>
+                                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                               {[
+                                                  { label: "Aadhar", url: customer.aadharUrl, name: "aadharUrl" },
+                                                  { label: "PAN Card", url: customer.panUrl, name: "panUrl" },
+                                                  { label: "Food Lic.", url: customer.foodLicenseUrl, name: "foodLicenseUrl" },
+                                                  { label: "GST Proof", url: customer.gstProofUrl, name: "gstProofUrl" }
+                                               ].map((doc) => (
+                                                  <div key={doc.label} className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/50 border border-dashed border-black/10 dark:border-white/10 flex flex-col items-center justify-center gap-2 text-center group transition-colors hover:border-primary/30 overflow-hidden">
+                                                     <span className="text-[10px] font-bold uppercase text-foreground">{doc.label}</span>
+                                                     {doc.url && (
+                                                        <a href={doc.url} target="_blank" className="text-[9px] font-bold text-emerald-500 flex items-center gap-1 hover:underline mb-1">
+                                                           <CheckCircle2 className="h-3 w-3" /> View Uploaded
+                                                        </a>
+                                                     )}
+                                                     <div className="w-full">
+                                                        <UploadButton
+                                                           endpoint="customerDocument"
+                                                           onClientUploadComplete={(res) => {
+                                                             alert(`${doc.label} uploaded successfully!`);
+                                                           }}
+                                                           appearance={{ button: "bg-primary/10 text-primary h-8 text-[10px] px-3 rounded-lg font-bold w-full truncate mt-1" }}
+                                                         />
+                                                     </div>
+                                                  </div>
+                                               ))}
+                                           </div>
+                                        </div>
+                                     </div>
+
+                                     {/* FOOTER (Recent Activity moved inside scrollable body) */}
+                                     <div className="p-5 sm:p-6 border-t border-black/5 dark:border-white/5 bg-zinc-50/50 dark:bg-zinc-900/30">
+                                        <div className="flex items-center justify-between mb-4">
+                                           <h3 className="text-[11px] font-black uppercase tracking-widest text-foreground">Recent Activity</h3>
+                                           <div className="flex items-center gap-2 bg-white dark:bg-zinc-800 px-3 py-1.5 rounded-lg border border-black/5 dark:border-white/5 shadow-sm">
+                                              <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Pending Dues</span>
+                                              <span className={`text-xs font-black ${Number(customer.totalPendingPayment) > 0 ? "text-destructive" : "text-emerald-500"}`}>
+                                                {money(Number(customer.totalPendingPayment))}
+                                              </span>
+                                           </div>
+                                        </div>
+                                        
+                                        <div className="space-y-2">
+                                           {customer.transactions.length > 0 ? (
+                                              customer.transactions.slice().reverse().slice(0, 5).map((t) => (
+                                                 <div key={t.id} className="p-3 rounded-xl bg-white dark:bg-zinc-950 border border-black/5 dark:border-white/5 flex items-center justify-between shadow-sm hover:border-primary/20 transition-colors">
+                                                    <div className="flex items-center gap-3">
+                                                       <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${t.filledCylindersDelivered > 0 ? "bg-emerald-500/10 text-emerald-500" : "bg-orange-500/10 text-orange-500"}`}>
+                                                          {t.filledCylindersDelivered > 0 ? <ArrowRight className="h-4 w-4" /> : <ArrowRight className="h-4 w-4 rotate-180" />}
+                                                       </div>
+                                                       <div>
+                                                          <p className="text-xs font-black text-foreground">
+                                                             {t.filledCylindersDelivered > 0 ? `Delivered: ${t.filledCylindersDelivered}` : `Collected: ${t.emptyCylindersReceived}`} Cylinders
+                                                          </p>
+                                                          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">
+                                                             {new Date(t.deliveryDate).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                                                          </p>
+                                                       </div>
+                                                    </div>
+                                                    <div className="text-right flex flex-col items-end">
+                                                       <p className="text-xs font-black text-primary">{money(Number(t.paymentAmount))}</p>
+                                                       <Badge className={`mt-1 border-none px-1.5 py-0 rounded text-[8px] font-black uppercase tracking-widest ${t.paymentStatus === "Done" ? "bg-emerald-500/10 text-emerald-500" : "bg-destructive/10 text-destructive"}`}>
+                                                          {t.paymentStatus}
+                                                       </Badge>
+                                                    </div>
+                                                 </div>
+                                              ))
+                                           ) : (
+                                              <div className="py-6 text-center rounded-xl border border-dashed border-black/10 dark:border-white/10">
+                                                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">No recent activity recorded</p>
+                                              </div>
+                                           )}
+                                        </div>
+                                     </div>
+                                  </div>
+
+                               </div>
+                            </DialogContent>
+                          </DialogPortal>
                        </Dialog>
 
-                       {/* ── Quick Sale Dialog ── */}
                        <Dialog>
                           <DialogTrigger asChild>
                              <button className="h-12 w-12 rounded-2xl bg-primary/10 hover:bg-primary text-primary hover:text-white flex items-center justify-center transition-all group/btn shadow-lg shadow-primary/5">
                                 <Plus className="h-6 w-6 group-hover/btn:rotate-90 transition-transform duration-300" />
                              </button>
                           </DialogTrigger>
-
-                          <Modal>
-                            <div className="w-full max-w-sm mx-auto rounded-[2.5rem] bg-white dark:bg-zinc-950 p-10 shadow-2xl border border-black/5 dark:border-white/10 space-y-8 relative">
-                               <DialogClose className="absolute top-8 right-8 h-10 w-10 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center">
-                                  <X className="h-5 w-5 text-foreground" />
-                               </DialogClose>
-                               <div className="text-center space-y-2">
-                                  <DialogTitle className="text-2xl font-black text-foreground tracking-tight">Quick Sale</DialogTitle>
-                                  <p className="text-[10px] font-bold text-primary uppercase tracking-widest">{customer.fullName}</p>
-                               </div>
-                               <form action={(form) => actionWrapper(createTransaction, form)} className="space-y-6">
-                                  <input type="hidden" name="customerId" value={customer.id} />
-                                  <input type="hidden" name="paymentStatus" value="Done" />
-                                  <input type="hidden" name="deliveryDate" value={new Date().toISOString().slice(0, 10)} />
-                                  
-                                  <div className="space-y-4">
-                                      <div className="flex p-1 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-black/5">
-                                         {["Delivery", "Collection"].map((type) => (
-                                            <button
-                                               key={type}
-                                               type="button"
-                                               onClick={() => setActionType(type as any)}
-                                               className={`flex-1 py-3 rounded-xl text-[9px] font-bold uppercase tracking-widest transition-all ${
-                                                  actionType === type 
-                                                     ? "bg-white dark:bg-zinc-800 text-primary shadow-lg" 
-                                                     : "text-muted-foreground"
-                                               }`}
-                                            >
-                                               {type}
-                                            </button>
-                                         ))}
-                                      </div>
-                                      <div className="space-y-2">
-                                         <Input 
-                                            name={actionType === "Delivery" ? "filledCylindersDelivered" : "emptyCylindersReceived"} 
-                                            type="number" 
-                                            min="0" 
-                                            defaultValue="1" 
-                                            className="h-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-2xl font-black text-center" 
-                                         />
-                                         <input type="hidden" name={actionType === "Delivery" ? "emptyCylindersReceived" : "filledCylindersDelivered"} value="0" />
-                                      </div>
-                                  </div>
-                                  <div className="space-y-2">
-                                     <div className="relative">
-                                        <IndianRupee className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
-                                        <Input name="paymentAmount" type="number" min="0" placeholder="Amount" className="h-14 pl-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-xl font-black text-primary" />
-                                     </div>
-                                  </div>
-                                  <SubmitButton>Confirm Transaction</SubmitButton>
-                               </form>
-                            </div>
-                          </Modal>
+                          <DialogPortal>
+                             <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[200] bg-background/80 backdrop-blur-xl p-6 flex items-center justify-center animate-in fade-in zoom-in-95 duration-300">
+                                 <div className="w-full max-w-sm rounded-[2.5rem] bg-white dark:bg-zinc-950 p-10 shadow-2xl border border-black/5 dark:border-white/10 space-y-8 relative">
+                                    <DialogClose className="absolute top-8 right-8 h-10 w-10 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors">
+                                       <X className="h-5 w-5 text-foreground" />
+                                    </DialogClose>
+                                    <div className="text-center space-y-2">
+                                       <DialogTitle className="text-2xl font-black text-foreground tracking-tight">Quick Sale</DialogTitle>
+                                       <p className="text-[10px] font-bold text-primary uppercase tracking-widest">{customer.fullName}</p>
+                                    </div>
+                                    <form action={(form) => actionWrapper(createTransaction, form)} className="space-y-6">
+                                       <input type="hidden" name="customerId" value={customer.id} />
+                                       <input type="hidden" name="paymentStatus" value="Done" />
+                                       <input type="hidden" name="deliveryDate" value={new Date().toISOString().slice(0, 10)} />
+                                       
+                                       <div className="space-y-4">
+                                           <div className="flex p-1 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-black/5">
+                                              {["Delivery", "Collection"].map((type) => (
+                                                 <button
+                                                    key={type}
+                                                    type="button"
+                                                    onClick={() => setActionType(type as any)}
+                                                    className={`flex-1 py-3 rounded-xl text-[9px] font-bold uppercase tracking-widest transition-all ${
+                                                       actionType === type 
+                                                          ? "bg-white dark:bg-zinc-800 text-primary shadow-lg" 
+                                                          : "text-muted-foreground"
+                                                    }`}
+                                                 >
+                                                    {type}
+                                                 </button>
+                                              ))}
+                                           </div>
+                                           <div className="space-y-2">
+                                              <Input 
+                                                 name={actionType === "Delivery" ? "filledCylindersDelivered" : "emptyCylindersReceived"} 
+                                                 type="number" 
+                                                 min="0" 
+                                                 defaultValue="1" 
+                                                 className="h-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-2xl font-black text-center" 
+                                              />
+                                              <input type="hidden" name={actionType === "Delivery" ? "emptyCylindersReceived" : "filledCylindersDelivered"} value="0" />
+                                           </div>
+                                       </div>
+                                       <div className="space-y-2">
+                                          <div className="relative">
+                                             <IndianRupee className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
+                                             <Input name="paymentAmount" type="number" min="0" placeholder="Amount" className="h-14 pl-14 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner text-xl font-black text-primary" />
+                                          </div>
+                                       </div>
+                                       <SubmitButton>Confirm Transaction</SubmitButton>
+                                    </form>
+                                 </div>
+                             </DialogContent>
+                          </DialogPortal>
                        </Dialog>
                     </div>
                   </article>
@@ -431,15 +528,15 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
             </div>
 
             {filtered.length === 0 && (
-              <div className="rounded-[2rem] bg-white dark:bg-zinc-950 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-10 text-center space-y-4 flex flex-col items-center justify-center">
-                <div className="h-12 w-12 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center">
-                   <Search className="h-6 w-6 text-muted-foreground opacity-40" />
+              <div className="rounded-[2.5rem] bg-white dark:bg-zinc-950 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-20 text-center space-y-6">
+                <div className="h-20 w-20 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center mx-auto">
+                   <Search className="h-10 w-10 text-muted-foreground opacity-20" />
                 </div>
-                <div className="space-y-1">
-                  <h3 className="text-base font-black text-foreground">No matches</h3>
-                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Try a different name or area</p>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-black text-foreground">No matches</h3>
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Try a different name or area</p>
                 </div>
-                <Button onClick={() => setQuery("")} variant="outline" className="rounded-xl px-6 h-9 font-bold uppercase tracking-widest text-[10px]">Clear</Button>
+                <Button onClick={() => setQuery("")} variant="outline" className="rounded-xl px-8 h-12 font-bold uppercase tracking-widest text-[10px]">Clear</Button>
               </div>
             )}
           </section>
