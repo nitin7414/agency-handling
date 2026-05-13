@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, ClipboardList, Home, Settings, Users } from "lucide-react";
+import { BarChart3, Home, Settings, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
@@ -11,11 +11,12 @@ const items = [
   { href: "/settings", label: "More", icon: Settings }
 ];
 
-
 export function BottomNav() {
   const pathname = usePathname();
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-zinc-950 border-t border-black/5 dark:border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-none" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+    // Changed: sm:hidden → md:hidden
+    // This shows the bottom nav on phones (< 768px) and hides it on tablets/laptops/desktops (≥ 768px)
+    <nav className="fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-zinc-950 border-t border-black/5 dark:border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-none md:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="grid grid-cols-4 h-16">
         {items.map((item) => {
           const Icon = item.icon;

@@ -32,9 +32,9 @@ export default async function CustomersPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/15 via-background to-background">
+    <div className="space-y-6">
         <MobileHeader
-          title=""
+          title="Customers"
           subtitle="Search by locality, address, phone or name"
         />
         <CustomerClient customers={safeCustomers} />

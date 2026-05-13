@@ -46,6 +46,7 @@ export async function updateAdminProfile(formData: FormData) {
     const updateData: any = { name, email };
     if (password) {
       updateData.passwordHash = await bcrypt.hash(password, 10);
+      updateData.sessionVersion = { increment: 1 };
     }
 
     await prisma.admin.update({

@@ -138,7 +138,9 @@ export function NewSaleDialog({ customers }: NewSaleDialogProps) {
                       className="w-full flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 hover:border-primary/30 transition-all text-left group"
                     >
                       <div>
-                        <p className="font-black text-foreground group-hover:text-primary transition-colors">{c.fullName}</p>
+                        <p className="font-black text-foreground group-hover:text-primary transition-colors">
+                          {c.fullName} <span className="text-[9px] text-muted-foreground ml-1">#{c.id.slice(0, 6).toUpperCase()}</span>
+                        </p>
                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{c.area} • {c.phoneNumber}</p>
                       </div>
                       <div className="text-right">

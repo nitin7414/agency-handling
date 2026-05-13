@@ -175,80 +175,102 @@ export default async function DashboardPage() {
   const data = await getDashboardData();
 
   return (
-    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-background to-background">
+    <div className="min-h-screen bg-background bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-background to-background pb-12">
       <DashboardHeader customers={data.allCustomers} />
 
-      <main className="space-y-8 px-4 pb-24 pt-4">
+      <main className="space-y-8 px-4 pt-4 sm:px-0">
         
-        {/* ── Dashboard Actions ── */}
-        <section>
-          <DashboardActions customers={data.allCustomers} />
-        </section>
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Actions & Stats */}
+          <div className="sm:col-span-8 space-y-8">
+            {/* ── Dashboard Actions ── */}
+            <section>
+              <DashboardActions customers={data.allCustomers} />
+            </section>
 
-        {/* ── Cylinder Stats ── */}
-        <section>
-          <div className="flex items-center gap-2 mb-4">
-             <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-             <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Operations</h2>
-          </div>
-          <div className="grid grid-cols-3 gap-3">
-            <StatBadge label="Total Due" value={money(data.totalPendingAmount)} icon={IndianRupee} />
-            <StatBadge label="Total Filled" value={data.totalDelivered} icon={PackageCheck} />
-            <StatBadge label="Total Empty" value={data.marketBalance} icon={PackageOpen} />
-          </div>
-        </section>
-
-        {/* ── Quick Actions ── */}
-        <section>
-          <NewSaleDialog customers={data.allCustomers} />
-        </section>
-
-        {/* ── Recent Activity (Moved up) ── */}
-        <section>
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-               <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Recent Activity</h2>
-            </div>
-            <Link href="/transactions" className="flex items-center gap-1 text-[10px] font-bold text-primary uppercase tracking-widest">
-              View All <ArrowRight className="h-3 w-3" />
-            </Link>
-          </div>
-          <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 divide-y divide-black/5 dark:divide-white/5 overflow-hidden shadow-xl shadow-black/5">
-            {data.recentTransactions.map((t, i) => (
-              <div key={t.id} className="flex items-center justify-between px-6 py-4 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-                <div className="flex items-center gap-4">
-                   <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-[10px] font-bold text-primary">
-                      {t.customer.fullName.charAt(0)}
-                   </div>
-                   <div>
-                    <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 leading-none">{t.customer.fullName}</p>
-                    <p className="text-[10px] font-medium text-muted-foreground mt-1 tracking-wide">
-                      {t.filledCylindersDelivered > 0 
-                        ? `${t.filledCylindersDelivered} cyl delivered` 
-                        : `${t.emptyCylindersReceived} cyl collected`}
-                    </p>
-                  </div>
-                </div>
-                <span className="text-sm font-black text-primary">
-                  {money(Number(t.paymentAmount))}
-                </span>
+            {/* ── Cylinder Stats ── */}
+            <section>
+              <div className="flex items-center gap-2 mb-4">
+                 <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                 <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Operations</h2>
               </div>
-            ))}
+              <div className="grid grid-cols-3 gap-4">
+                <StatBadge label="Total Due" value={money(data.totalPendingAmount)} icon={IndianRupee} />
+                <StatBadge label="Total Filled" value={data.totalDelivered} icon={PackageCheck} />
+                <StatBadge label="Total Empty" value={data.marketBalance} icon={PackageOpen} />
+              </div>
+            </section>
+
+            {/* ── Monthly Delivery Chart ── */}
+            <section>
+               <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 p-8 shadow-xl shadow-black/5">
+                  <h3 className="text-sm font-bold mb-8 flex items-center gap-2">
+                    <Cylinder className="h-4 w-4 text-primary" />
+                    Monthly Delivery Overview
+                  </h3>
+                  <div className="h-[300px]">
+                    <CylinderChart data={data.monthlyChartData} />
+                  </div>
+               </div>
+            </section>
           </div>
-        </section>
 
+          {/* Right Column: Activity & Quick Actions */}
+          <div className="sm:col-span-4 space-y-8">
+            {/* ── Quick Actions ── */}
+            <section>
+              <div className="flex items-center gap-2 mb-4">
+                 <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                 <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Quick Sale</h2>
+              </div>
+              <NewSaleDialog customers={data.allCustomers} />
+            </section>
 
-        {/* ── Monthly Delivery Chart (Moved down) ── */}
-        <section>
-           <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 p-6 shadow-xl shadow-black/5">
-              <h3 className="text-sm font-bold mb-6 flex items-center gap-2">
-                <Cylinder className="h-4 w-4 text-primary" />
-                Monthly Delivery Count
-              </h3>
-              <CylinderChart data={data.monthlyChartData} />
-           </div>
-        </section>
+            {/* ── Recent Activity ── */}
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                   <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                   <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Recent Activity</h2>
+                </div>
+                <Link href="/transactions" className="flex items-center gap-1 text-[10px] font-bold text-primary uppercase tracking-widest">
+                  View All <ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
+              <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 divide-y divide-black/5 dark:divide-white/5 overflow-hidden shadow-xl shadow-black/5">
+                {data.recentTransactions.length > 0 ? (
+                  data.recentTransactions.map((t, i) => (
+                    <div key={t.id} className="flex items-center justify-between px-6 py-4 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                      <div className="flex items-center gap-4">
+                         <div className="h-10 w-10 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-xs font-bold text-primary">
+                            {t.customer.fullName.charAt(0)}
+                         </div>
+                         <div>
+                          <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 leading-none">
+                            {t.customer.fullName} <span className="text-[10px] text-muted-foreground ml-1 font-bold">#{t.customer.id.slice(0, 6).toUpperCase()}</span>
+                          </p>
+                          <p className="text-[10px] font-medium text-muted-foreground mt-1.5 tracking-wide">
+                            {t.filledCylindersDelivered > 0 
+                              ? `${t.filledCylindersDelivered} cyl delivered` 
+                              : `${t.emptyCylindersReceived} cyl collected`}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-sm font-black text-primary">
+                        {money(Number(t.paymentAmount))}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-6 py-12 text-center text-sm text-muted-foreground font-medium italic">
+                    No recent transactions
+                  </div>
+                )}
+              </div>
+            </section>
+          </div>
+        </div>
 
       </main>
     </div>

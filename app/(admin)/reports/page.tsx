@@ -13,127 +13,127 @@ export default function ReportsPage() {
         subtitle="Manage exports & infrastructure"
       />
 
-      <main className="px-4 pb-24 pt-4 space-y-8">
-
-        {/* Section: Export Data */}
-        <section>
-          <div className="flex items-center gap-2 mb-4">
-             <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-             <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Data Exports</h2>
-          </div>
-          
-          <div className="space-y-4">
-            {/* Customer Records Card */}
-            <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-6 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Users className="h-20 w-20 text-primary" />
-              </div>
-              
-              <div className="flex items-center gap-4 mb-4">
-                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <FileSpreadsheet className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-black text-foreground">Customer Base</h3>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">CSV Format</p>
-                </div>
-              </div>
-              
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Generate a complete ledger of all customers, including their current cylinder balances and pending dues.
-              </p>
-              
-              <a href="/api/export/customers">
-                <Button className="w-full h-12 rounded-xl bg-primary text-black font-black text-sm shadow-lg shadow-primary/20 touch-card">
-                  <Download className="mr-2 h-4 w-4" /> Export Customers
-                </Button>
-              </a>
+      <main className="px-4 pb-24 pt-4 sm:px-0 space-y-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start">
+          {/* Section: Export Data */}
+          <section className="space-y-6">
+            <div className="flex items-center gap-2">
+               <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+               <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Data Exports</h2>
             </div>
-
-            {/* Transaction Report Card */}
-            <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-6 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                <History className="h-20 w-20 text-blue-500" />
-              </div>
-              
-              <div className="flex items-center gap-4 mb-4">
-                <div className="h-12 w-12 rounded-2xl bg-blue-500/10 flex items-center justify-center">
-                  <ArrowRight className="h-6 w-6 text-blue-500" />
+            
+            <div className="grid grid-cols-1 gap-4">
+              {/* Customer Records Card */}
+              <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-8 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <Users className="h-24 w-24 text-primary" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-black text-foreground">Transactions</h3>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">History Log</p>
+                
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <FileSpreadsheet className="h-7 w-7 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-foreground">Customer Base</h3>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">CSV Format</p>
+                  </div>
                 </div>
+                
+                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                  Generate a complete ledger of all customers, including their current cylinder balances and pending dues.
+                </p>
+                
+                <a href="/api/export/customers">
+                  <Button className="w-full h-12 rounded-xl bg-primary text-black font-black text-sm shadow-lg shadow-primary/20 touch-card">
+                    <Download className="mr-2 h-4 w-4" /> Export Customers
+                  </Button>
+                </a>
               </div>
-              
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Export detailed transaction records, payments, and delivery logs for financial auditing.
-              </p>
-              
-              <a href="/api/export/transactions">
-                <Button variant="secondary" className="w-full h-12 rounded-xl bg-muted/50 border-border/10 text-foreground font-black text-sm touch-card">
-                  <Download className="mr-2 h-4 w-4 text-primary" /> Export Transactions
-                </Button>
-              </a>
-            </div>
-          </div>
-        </section>
 
-        {/* Section: Infrastructure */}
-        <section>
-          <div className="flex items-center gap-2 mb-4">
-             <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-             <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Infrastructure</h2>
-          </div>
-          
-          <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <Database className="h-6 w-6 text-primary" />
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest">Neon Cloud SQL</span>
+              {/* Transaction Report Card */}
+              <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-8 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <History className="h-24 w-24 text-blue-500" />
+                </div>
+                
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="h-14 w-14 rounded-2xl bg-blue-500/10 flex items-center justify-center">
+                    <ArrowRight className="h-7 w-7 text-blue-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-foreground">Transactions</h3>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">History Log</p>
+                  </div>
+                </div>
+                
+                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                  Export detailed transaction records, payments, and delivery logs for financial auditing.
+                </p>
+                
+                <a href="/api/export/transactions">
+                  <Button variant="secondary" className="w-full h-12 rounded-xl bg-muted/50 border-border/10 text-foreground font-black text-sm touch-card">
+                    <Download className="mr-2 h-4 w-4 text-primary" /> Export Transactions
+                  </Button>
+                </a>
               </div>
             </div>
+          </section>
 
-            <h3 className="text-lg font-black text-foreground mb-2">Resilience & Backups</h3>
-            <p className="text-xs text-muted-foreground mb-6">Database integrity and recovery guidelines.</p>
-
-            <div className="space-y-4">
-              <div className="flex gap-4 p-4 rounded-2xl bg-muted/50 border-border/10">
-                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <Cloud className="h-4 w-4 text-primary" />
+          {/* Section: Infrastructure */}
+          <section className="space-y-6">
+            <div className="flex items-center gap-2">
+               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+               <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Infrastructure</h2>
+            </div>
+            
+            <div className="rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 p-8">
+              <div className="flex items-center justify-between mb-8">
+                <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Database className="h-7 w-7 text-primary" />
                 </div>
-                <div>
-                   <p className="text-xs font-bold text-foreground mb-1">Point-in-Time Restore</p>
-                   <p className="text-[11px] text-muted-foreground leading-relaxed">Continuous backup coverage is active on your Neon dashboard.</p>
+                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest">Neon Cloud SQL</span>
                 </div>
               </div>
 
-              <div className="flex gap-4 p-4 rounded-2xl bg-muted/50 border-border/10">
-                <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="h-4 w-4 text-blue-500" />
-                </div>
-                <div>
-                   <p className="text-xs font-bold text-foreground mb-1">Security Standards</p>
-                   <p className="text-[11px] text-muted-foreground leading-relaxed">Your database URL is encrypted in the environment secrets manager.</p>
-                </div>
-              </div>
+              <h3 className="text-xl font-black text-foreground mb-2">Resilience & Backups</h3>
+              <p className="text-xs text-muted-foreground mb-8">Database integrity and recovery guidelines.</p>
 
-              <div className="flex gap-4 p-4 rounded-2xl bg-muted/50 border-border/10">
-                <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
-                  <Zap className="h-4 w-4 text-emerald-500" />
+              <div className="grid grid-cols-1 gap-4">
+                <div className="flex gap-4 p-5 rounded-2xl bg-muted/50 border-border/10">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <Cloud className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                     <p className="text-sm font-bold text-foreground mb-1">Point-in-Time Restore</p>
+                     <p className="text-xs text-muted-foreground leading-relaxed">Continuous backup coverage is active on your Neon dashboard.</p>
+                  </div>
                 </div>
-                <div>
-                   <p className="text-xs font-bold text-foreground mb-1">Branch Backups</p>
-                   <p className="text-[11px] text-muted-foreground leading-relaxed">Set up scheduled daily restore points for maximum safety.</p>
+
+                <div className="flex gap-4 p-5 rounded-2xl bg-muted/50 border-border/10">
+                  <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="h-5 w-5 text-blue-500" />
+                  </div>
+                  <div>
+                     <p className="text-sm font-bold text-foreground mb-1">Security Standards</p>
+                     <p className="text-xs text-muted-foreground leading-relaxed">Your database URL is encrypted in the environment secrets manager.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 p-5 rounded-2xl bg-muted/50 border-border/10">
+                  <div className="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
+                    <Zap className="h-5 w-5 text-emerald-500" />
+                  </div>
+                  <div>
+                     <p className="text-sm font-bold text-foreground mb-1">Branch Backups</p>
+                     <p className="text-xs text-muted-foreground leading-relaxed">Set up scheduled daily restore points for maximum safety.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
+          </section>
+        </div>
       </main>
     </div>
   );

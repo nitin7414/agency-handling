@@ -100,14 +100,6 @@ export default function LoginPage() {
               {loading ? "Authenticating..." : "Login Securely"}
             </Button>
 
-            <div className="pt-2 text-center">
-              <p className="text-xs text-muted-foreground">
-                Don't have an account?{" "}
-                <Link href="/signup" className="text-primary font-bold hover:underline">
-                  Sign up
-                </Link>
-              </p>
-            </div>
           </form>
         </div>
 

@@ -33,24 +33,22 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
     .slice(0, 5);
 
   return (
-    <header className="px-4 pt-6 pb-2 space-y-6">
-      <div className="flex items-center justify-between">
+    <header className="px-4 pt-6 pb-2 space-y-6 sm:px-0 sm:pt-0">
+      <div className="flex items-center justify-between sm:hidden">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white dark:bg-zinc-900 shadow-xl shadow-black/5 dark:shadow-none overflow-hidden">
             <img src="/logo.png" alt="Shri Shyam Gas Agency Logo" className="h-full w-full object-contain" />
           </div>
           <div>
             <p className="text-[20px] font-black uppercase tracking-[0.2em]">
-  <span className="text-green-600">Shri Shyam</span>
-  <span className="text-red-600"> Gas Agency</span>
-</p>
+              <span className="text-green-600">Shri Shyam</span>
+              <span className="text-red-600"> Gas Agency</span>
+            </p>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative max-w-2xl">
         <div className="flex items-center rounded-2xl bg-white dark:bg-zinc-900 shadow-xl shadow-black/5 dark:shadow-none focus-within:ring-2 focus-within:ring-blue-600 transition-all overflow-hidden">
           <div className="pl-4 flex items-center justify-center">
             <Search className="h-4 w-4 text-muted-foreground" />
@@ -86,7 +84,7 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
                       <User className="h-4 w-4 text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold">{c.fullName}</p>
+                      <p className="text-sm font-bold">{c.fullName} <span className="text-[10px] text-muted-foreground ml-1">#{c.id.slice(0, 6).toUpperCase()}</span></p>
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{c.area}</p>
                     </div>
                   </button>
@@ -121,7 +119,10 @@ export function DashboardHeader({ customers }: { customers: Customer[] }) {
                         <Dialog.Title className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
                           {selectedCustomer.fullName}
                         </Dialog.Title>
-                        <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">{selectedCustomer.area}</p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">{selectedCustomer.area}</p>
+                          <span className="text-[10px] font-black text-muted-foreground bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded-lg">#{selectedCustomer.id.slice(0, 6).toUpperCase()}</span>
+                        </div>
                       </div>
                     </div>
                     <Dialog.Close className="rounded-full p-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">

@@ -148,7 +148,9 @@ export function DashboardActions({ customers }: DashboardActionsProps) {
                     key={customer.id}
                     className="flex items-center justify-between p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-white/5"
                   >
-                    <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{customer.fullName}</span>
+                    <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                      {customer.fullName} <span className="text-[10px] text-muted-foreground ml-1">#{customer.id.slice(0, 6).toUpperCase()}</span>
+                    </span>
                     <span className="text-sm font-black text-primary">
                       {type === "empty"
                         ? customer.totalCylindersReceived - customer.totalEmptyCylindersReturned

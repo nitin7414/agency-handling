@@ -21,7 +21,13 @@ export const authOptions: NextAuthOptions = {
         if (!admin) return null;
         const valid = await bcrypt.compare(parsed.data.password, admin.passwordHash);
         if (!valid) return null;
-        return { id: admin.id, name: admin.name, email: admin.email, role: "admin" };
+        return { 
+          id: admin.id, 
+          name: admin.name, 
+          email: admin.email, 
+          role: "admin",
+          sessionVersion: admin.sessionVersion 
+        };
       }
     })
   ],
@@ -30,14 +36,37 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.sub = user.id;
         token.role = (user as any).role;
+        token.sessionVersion = (user as any).sessionVersion;
       }
+
+      // To implement "industry standard" session invalidation, we check the database
+      // if this is not the initial login (i.e., user is not present in the callback)
+      if (!user && token.sub) {
+        const admin = await prisma.admin.findUnique({
+          where: { id: token.sub as string },
+          select: { sessionVersion: true }
+        });
+
+        // If admin not found or version mismatch, invalidate the token
+        if (!admin || admin.sessionVersion !== token.sessionVersion) {
+          return {} as any; // Return empty to effectively invalidate
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
+      if (session.user && token.sub) {
         session.user.id = token.sub as string;
         (session.user as any).role = token.role;
+        (session.user as any).sessionVersion = token.sessionVersion;
       }
+
+      // If token is empty (invalidated in jwt callback), session should be null
+      if (!token.sub) {
+        return null as any;
+      }
+
       return session;
     }
   }

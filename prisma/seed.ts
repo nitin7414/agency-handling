@@ -14,7 +14,7 @@ const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const email = process.env.ADMIN_EMAIL ?? "Admin@gas.local";
+  const email = (process.env.ADMIN_EMAIL ?? "Admin@gas.local").toLowerCase();
   const password = process.env.ADMIN_PASSWORD ?? "Admin@123";
 
   const passwordHash = await bcrypt.hash(password, 12);
