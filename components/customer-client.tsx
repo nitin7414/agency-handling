@@ -267,25 +267,33 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                           <DialogPortal>
                             <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[200] bg-background/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center animate-in fade-in duration-200">
                                <div className="w-full max-w-2xl bg-white dark:bg-zinc-950 rounded-[2rem] shadow-2xl border border-black/10 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
-                                  
-                                  {/* HEADER */}
-                           {/* HEADER */}
-<div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
-   <div className="flex items-center gap-4">
-      <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-inner">
+                           
+{/* HEADER */}
+<div className="p-4 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0 gap-3">
+   {/* Left Side - Added min-w-0 to allow truncation on mobile */}
+   <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-lg sm:text-xl shadow-inner shrink-0">
          {customer.fullName.charAt(0)}
       </div>
-      <div>
-         <DialogTitle className="text-xl font-black text-foreground tracking-tight">{customer.fullName}</DialogTitle>
-         <div className="flex items-center gap-3 mt-1">
-            <Badge className="bg-primary/10 text-primary border-none rounded-md px-2 py-0.5 font-bold text-[10px] uppercase tracking-widest">{customer.area}</Badge>
-            <a href={`tel:${customer.phoneNumber}`} className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-primary transition-colors">
-               <Phone className="h-3 w-3" /> {customer.phoneNumber}
+      <div className="min-w-0">
+         {/* Added truncate to the title */}
+         <DialogTitle className="text-lg sm:text-xl font-black text-foreground tracking-tight truncate">
+            {customer.fullName}
+         </DialogTitle>
+         <div className="flex items-center gap-2 mt-1">
+            <Badge className="bg-primary/10 text-primary border-none rounded-md px-2 py-0.5 font-bold text-[10px] uppercase tracking-widest shrink-0">
+               {customer.area}
+            </Badge>
+            <a href={`tel:${customer.phoneNumber}`} className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-primary transition-colors truncate">
+               <Phone className="h-3 w-3 shrink-0" /> 
+               <span className="truncate hidden sm:inline">{customer.phoneNumber}</span>
             </a>
          </div>
       </div>
    </div>
-   <div className="flex items-center gap-1.5 sm:gap-2">
+
+   {/* Right Side Buttons - Added shrink-0 so they NEVER get pushed off screen */}
+   <div className="flex items-center gap-1 sm:gap-2 shrink-0">
       
       {/* Nested Edit Dialog */}
       <Dialog>
@@ -349,14 +357,14 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
         variant="ghost" 
         size="icon" 
         onClick={() => { if(confirm("Are you sure you want to delete this customer?")) deleteCustomer(customer.id).then(() => router.refresh()); }} 
-        className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive transition-colors text-muted-foreground"
+        className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive transition-colors text-muted-foreground shrink-0"
         title="Delete Customer"
       >
         <Trash2 className="h-4 w-4" />
       </Button>
       
-      {/* Main Profile Close Button - FIXED VISIBILITY HERE */}
-      <DialogClose className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-sm active:scale-90 transition-transform ml-1 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300">
+      {/* Main Profile Close Button */}
+      <DialogClose className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-sm active:scale-90 transition-transform hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 shrink-0">
         <X className="h-4 w-4" />
       </DialogClose>
    </div>
