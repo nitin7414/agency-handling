@@ -269,94 +269,98 @@ export function CustomerClient({ customers }: { customers: Customer[] }) {
                                <div className="w-full max-w-2xl bg-white dark:bg-zinc-950 rounded-[2rem] shadow-2xl border border-black/10 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
                                   
                                   {/* HEADER */}
-                                  <div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
-                                     <div className="flex items-center gap-4">
-                                        <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-inner">
-                                           {customer.fullName.charAt(0)}
-                                        </div>
-                                        <div>
-                                           <DialogTitle className="text-xl font-black text-foreground tracking-tight">{customer.fullName}</DialogTitle>
-                                           <div className="flex items-center gap-3 mt-1">
-                                              <Badge className="bg-primary/10 text-primary border-none rounded-md px-2 py-0.5 font-bold text-[10px] uppercase tracking-widest">{customer.area}</Badge>
-                                              <a href={`tel:${customer.phoneNumber}`} className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-primary transition-colors">
-                                                 <Phone className="h-3 w-3" /> {customer.phoneNumber}
-                                              </a>
-                                           </div>
-                                        </div>
-                                     </div>
-                                     <div className="flex items-center gap-1.5 sm:gap-2">
-                                        
-                                        {/* Nested Edit Dialog */}
-                                        <Dialog>
-                                          <DialogTrigger asChild>
-                                             <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary transition-colors text-muted-foreground" title="Edit Profile">
-                                               <Edit className="h-4 w-4" />
-                                             </Button>
-                                          </DialogTrigger>
-                                          <DialogPortal>
-                                             <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[210] bg-background/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center animate-in fade-in duration-300">
-                                                <div className="w-full max-w-xl bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-2xl border border-black/5 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
-                                                   <div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
-                                                      <div>
-                                                         <DialogTitle className="text-xl font-black text-foreground tracking-tight">Edit Customer</DialogTitle>
-                                                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Update Profile</p>
-                                                      </div>
-                                                      <DialogClose className="h-10 w-10 rounded-xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-lg active:scale-90 transition-transform hover:bg-zinc-100 dark:hover:bg-zinc-800">
-                                                         <X className="h-5 w-5" />
-                                                      </DialogClose>
-                                                   </div>
+                           {/* HEADER */}
+<div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+   <div className="flex items-center gap-4">
+      <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-inner">
+         {customer.fullName.charAt(0)}
+      </div>
+      <div>
+         <DialogTitle className="text-xl font-black text-foreground tracking-tight">{customer.fullName}</DialogTitle>
+         <div className="flex items-center gap-3 mt-1">
+            <Badge className="bg-primary/10 text-primary border-none rounded-md px-2 py-0.5 font-bold text-[10px] uppercase tracking-widest">{customer.area}</Badge>
+            <a href={`tel:${customer.phoneNumber}`} className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-primary transition-colors">
+               <Phone className="h-3 w-3" /> {customer.phoneNumber}
+            </a>
+         </div>
+      </div>
+   </div>
+   <div className="flex items-center gap-1.5 sm:gap-2">
+      
+      {/* Nested Edit Dialog */}
+      <Dialog>
+        <DialogTrigger asChild>
+           <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary transition-colors text-muted-foreground" title="Edit Profile">
+             <Edit className="h-4 w-4" />
+           </Button>
+        </DialogTrigger>
+        <DialogPortal>
+           <DialogContent aria-describedby={undefined} className="fixed inset-0 z-[210] bg-background/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center animate-in fade-in duration-300">
+              <div className="w-full max-w-xl bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-2xl border border-black/5 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
+                 <div className="p-5 sm:p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+                    <div>
+                       <DialogTitle className="text-xl font-black text-foreground tracking-tight">Edit Customer</DialogTitle>
+                       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Update Profile</p>
+                    </div>
+                    {/* Edit Dialog Close Button */}
+                    <DialogClose className="h-10 w-10 rounded-xl bg-white dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-lg active:scale-90 transition-transform hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+                       <X className="h-5 w-5" />
+                    </DialogClose>
+                 </div>
 
-                                                   <div className="flex-1 overflow-y-auto p-5 sm:p-6 custom-scrollbar bg-white dark:bg-zinc-950">
-                                                      <form action={(form) => actionWrapper(updateCustomer, form)} className="space-y-6">
-                                                         <input type="hidden" name="id" value={customer.id} />
-                                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                            <div className="space-y-1.5">
-                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
-                                                               <Input name="fullName" defaultValue={customer.fullName} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
-                                                            </div>
-                                                            <div className="space-y-1.5">
-                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Phone</label>
-                                                               <Input name="phoneNumber" defaultValue={customer.phoneNumber} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
-                                                            </div>
-                                                         </div>
-                                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                            <div className="space-y-1.5">
-                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Area</label>
-                                                               <Input name="area" defaultValue={customer.area} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
-                                                            </div>
-                                                            <div className="space-y-1.5">
-                                                               <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Address</label>
-                                                               <Input name="fullAddress" defaultValue={customer.fullAddress} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
-                                                            </div>
-                                                         </div>
-                                                         <div className="space-y-1.5">
-                                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Notes</label>
-                                                            <Textarea name="notes" defaultValue={customer.notes || ""} placeholder="Optional notes..." className="rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner min-h-[80px]" />
-                                                         </div>
-                                                         <div className="pt-4">
-                                                            <SubmitButton>Save Changes</SubmitButton>
-                                                         </div>
-                                                      </form>
-                                                   </div>
-                                                </div>
-                                             </DialogContent>
-                                          </DialogPortal>
-                                        </Dialog>
+                 <div className="flex-1 overflow-y-auto p-5 sm:p-6 custom-scrollbar bg-white dark:bg-zinc-950">
+                    <form action={(form) => actionWrapper(updateCustomer, form)} className="space-y-6">
+                       <input type="hidden" name="id" value={customer.id} />
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-1.5">
+                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
+                             <Input name="fullName" defaultValue={customer.fullName} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                          </div>
+                          <div className="space-y-1.5">
+                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Phone</label>
+                             <Input name="phoneNumber" defaultValue={customer.phoneNumber} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                          </div>
+                       </div>
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-1.5">
+                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Area</label>
+                             <Input name="area" defaultValue={customer.area} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                          </div>
+                          <div className="space-y-1.5">
+                             <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Address</label>
+                             <Input name="fullAddress" defaultValue={customer.fullAddress} required className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner" />
+                          </div>
+                       </div>
+                       <div className="space-y-1.5">
+                          <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Notes</label>
+                          <Textarea name="notes" defaultValue={customer.notes || ""} placeholder="Optional notes..." className="rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none shadow-inner min-h-[80px]" />
+                       </div>
+                       <div className="pt-4">
+                          <SubmitButton>Save Changes</SubmitButton>
+                       </div>
+                    </form>
+                 </div>
+              </div>
+           </DialogContent>
+        </DialogPortal>
+      </Dialog>
 
-                                        <Button 
-                                          variant="ghost" 
-                                          size="icon" 
-                                          onClick={() => { if(confirm("Are you sure you want to delete this customer?")) deleteCustomer(customer.id).then(() => router.refresh()); }} 
-                                          className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive transition-colors text-muted-foreground"
-                                          title="Delete Customer"
-                                        >
-                                          <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                        <DialogClose className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-sm active:scale-90 transition-transform ml-1 hover:bg-zinc-200 dark:hover:bg-zinc-700">
-                                          <X className="h-4 w-4" />
-                                        </DialogClose>
-                                     </div>
-                                  </div>
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        onClick={() => { if(confirm("Are you sure you want to delete this customer?")) deleteCustomer(customer.id).then(() => router.refresh()); }} 
+        className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive transition-colors text-muted-foreground"
+        title="Delete Customer"
+      >
+        <Trash2 className="h-4 w-4" />
+      </Button>
+      
+      {/* Main Profile Close Button - FIXED VISIBILITY HERE */}
+      <DialogClose className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/10 flex items-center justify-center shadow-sm active:scale-90 transition-transform ml-1 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300">
+        <X className="h-4 w-4" />
+      </DialogClose>
+   </div>
+</div>
 
                                   {/* BODY (Scrollable including Documents and Recent Activity) */}
                                   <div className="flex-1 overflow-y-auto custom-scrollbar bg-white dark:bg-zinc-950">
